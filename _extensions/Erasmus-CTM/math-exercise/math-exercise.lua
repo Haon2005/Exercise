@@ -180,7 +180,9 @@ function CodeBlock(el)
 
   local captionHtml = ""
   if caption then
-    captionHtml = '<div class="math-exercise-caption">' .. caption .. '</div>\n'
+    captionHtml = '<div class="math-exercise-caption math-exercise-toggle" role="button" tabindex="0">'
+               .. '<span class="math-chevron" aria-hidden="true"></span>'
+               .. caption .. '</div>\n'
   end
 
   -- Base data attributes shared by both modes
@@ -205,15 +207,30 @@ function CodeBlock(el)
     questionHtml = '<div class="math-exercise-question">' .. body .. '</div>'
   end
 
-  local html = table.concat({
-    '<div class="math-exercise-cell" ' .. attrs .. '>',
-    captionHtml,
+  local bodyHtml = table.concat({
     questionHtml,
     controlsHtml(),
     '<div class="math-legend-panel" style="display:none;"></div>',
     '<div class="math-feedback-area"></div>',
-    '</div>',
   }, "\n")
+
+  local html
+  if caption then
+    html = table.concat({
+      '<div class="math-exercise-cell" ' .. attrs .. '>',
+      captionHtml,
+      '<div class="math-exercise-body" style="display:none;">',
+      bodyHtml,
+      '</div>',
+      '</div>',
+    }, "\n")
+  else
+    html = table.concat({
+      '<div class="math-exercise-cell" ' .. attrs .. '>',
+      bodyHtml,
+      '</div>',
+    }, "\n")
+  end
 
   return pandoc.RawBlock("html", html)
 end

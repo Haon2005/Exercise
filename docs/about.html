@@ -1314,8 +1314,6 @@ Umfang U = <input type="text" id="math-exercise-4-f2" data-answer="2 * pi * 5" d
       headers: {
         'Content-Type':  'application/json',
         'Authorization': 'Bearer ' + cfg.apiKey,
-        'HTTP-Referer':  location.origin,
-        'X-Title':       (document.title || '').replace(/[^\x00-\x7F]/g, '').trim() || 'math-exercise',
       },
       body: JSON.stringify({
         model: cfg.model,

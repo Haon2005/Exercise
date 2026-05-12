@@ -193,8 +193,7 @@
     '        _mres = {"status": "correct"} if str(_ms) == str(_mc) else {"status": "not_exact"}',
     '    elif _math_reject.strip():',
     '        _mr  = parse_expr(_math_reject, local_dict=_local, transformations=_math_tf)',
-    '        _rd  = simplify(_ms - _mr)',
-    '        _rej = (_rd == 0) or (_rd.is_number and abs(float(_rd.evalf())) < 1e-10)',
+    '        _rej = (str(_ms) == str(_mr))',
     '        _mres = {"status": "rejected"} if _rej else {"status": "correct"}',
     '    else:',
     '        _mres = {"status": "correct"}',
@@ -332,6 +331,20 @@
       var r = renderTaskText(tasks[idx], cell.id, vars);
       cell.querySelector('.math-exercise-question').innerHTML = r.html;
       cell.dataset.fields = JSON.stringify(r.fieldIds);
+    }
+
+    // Collapsible (only when caption toggle exists)
+    var toggleEl = cell.querySelector('.math-exercise-toggle');
+    var bodyEl   = cell.querySelector('.math-exercise-body');
+    if (toggleEl && bodyEl) {
+      function toggleOpen() {
+        var open = cell.classList.toggle('math-exercise-open');
+        bodyEl.style.display = open ? '' : 'none';
+      }
+      toggleEl.addEventListener('click', toggleOpen);
+      toggleEl.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleOpen(); }
+      });
     }
 
     var fieldIds    = JSON.parse(cell.dataset.fields || '[]');

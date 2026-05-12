@@ -28,11 +28,33 @@
 .math-exercise-caption {
   font-weight: 600;
   font-size: 1.05em;
-  margin-bottom: .75em;
+  margin-bottom: 0;
   color: #1a1a2e;
   border-bottom: 2px solid #dee2e6;
   padding-bottom: .35em;
 }
+
+/* Collapsible toggle */
+.math-exercise-toggle {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: .45em;
+}
+.math-exercise-toggle:hover { color: #0d6efd; border-bottom-color: #0d6efd; }
+.math-exercise-open .math-exercise-toggle { margin-bottom: .75em; }
+
+.math-chevron {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: transform .18s ease;
+  color: #6c757d;
+  font-size: .7em;
+}
+.math-chevron::before { content: '▶'; }
+.math-exercise-open .math-chevron { transform: rotate(90deg); }
 
 .math-exercise-question {
   margin-bottom: 1em;
