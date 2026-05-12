@@ -601,7 +601,7 @@ Umfang U = <input type="text" id="math-exercise-4-f2" data-answer="2 * pi * 5" d
 <section id="pool-mit-variablen" class="level2">
 <h2 class="anchored" data-anchor-id="pool-mit-variablen">Pool mit Variablen</h2>
 <p>Ableitungsaufgaben als Pool – alle Varianten teilen dieselben Optionen.</p>
-<div class="math-exercise-cell" id="math-exercise-7" data-label="ableitung-pool" data-mode="equivalent" data-reject="" data-vars="x" data-pool="[&quot;Berechne die Ableitung von f(x) = x².\n\nf'(x) = _[2*x]&quot;,&quot;Berechne die Ableitung von f(x) = x³.\n\nf'(x) = _[3*x**2]&quot;,&quot;Berechne die Ableitung von f(x) = x⁴.\n\nf'(x) = _[4*x**3]&quot;]" data-fields="[]">
+<div class="math-exercise-cell" id="math-exercise-7" data-label="ableitung-pool" data-mode="equivalent" data-reject="" data-vars="x" data-pool="[&quot;Berechne die Ableitung von f(x) = x². $\\int 2x \\, dx$\n\nf'(x) = _[2*x]&quot;,&quot;Berechne die Ableitung von f(x) = x³.\n\nf'(x) = _[3*x**2]&quot;,&quot;Berechne die Ableitung von f(x) = x⁴.\n\nf'(x) = _[4*x**3]&quot;]" data-fields="[]">
 <div class="math-exercise-caption math-exercise-toggle" role="button" tabindex="0"><span class="math-chevron" aria-hidden="true"></span>Aufgabe – Ableitung bestimmen (Zufallsaufgabe)</div>
 
 <div class="math-exercise-body" style="display:none;">
@@ -1112,7 +1112,20 @@ Umfang U = <input type="text" id="math-exercise-4-f2" data-answer="2 * pi * 5" d
     link.rel = 'stylesheet'; link.href = KATEX + 'katex.min.css';
     document.head.appendChild(link);
     await loadScript(KATEX + 'katex.min.js');
+    await loadScript(KATEX + 'contrib/auto-render.min.js');
     katexReady = true;
+  }
+
+  var KATEX_DELIMITERS = [
+    { left: '$$', right: '$$', display: true  },
+    { left: '$',  right: '$',  display: false },
+    { left: '\\(', right: '\\)', display: false },
+    { left: '\\[', right: '\\]', display: true  },
+  ];
+
+  function renderMathInQuestion(el) {
+    if (!el || typeof renderMathInElement !== 'function') return;
+    renderMathInElement(el, { delimiters: KATEX_DELIMITERS, throwOnError: false });
   }
 
   // ---------------------------------------------------------------------------
@@ -1385,8 +1398,12 @@ Umfang U = <input type="text" id="math-exercise-4-f2" data-answer="2 * pi * 5" d
         try { sessionStorage.setItem(pkey, String(idx)); } catch(e) {}
       }
       var r = renderTaskText(tasks[idx], cell.id, vars);
-      cell.querySelector('.math-exercise-question').innerHTML = r.html;
+      var qDiv = cell.querySelector('.math-exercise-question');
+      qDiv.innerHTML = r.html;
       cell.dataset.fields = JSON.stringify(r.fieldIds);
+      renderMathInQuestion(qDiv);
+    } else {
+      renderMathInQuestion(cell.querySelector('.math-exercise-question'));
     }
 
     // Collapsible (only when caption toggle exists)
@@ -1480,9 +1497,11 @@ Umfang U = <input type="text" id="math-exercise-4-f2" data-answer="2 * pi * 5" d
         try { sessionStorage.setItem(pkey, String(next)); } catch(e) {}
 
         var r = renderTaskText(poolTasks[next], cell.id, vars);
-        cell.querySelector('.math-exercise-question').innerHTML = r.html;
+        var qDivR = cell.querySelector('.math-exercise-question');
+        qDivR.innerHTML = r.html;
         cell.dataset.fields = JSON.stringify(r.fieldIds);
         fieldIds = r.fieldIds;
+        renderMathInQuestion(qDivR);
 
         attachKeyListeners();
         fbDiv.innerHTML = '';
@@ -1551,8 +1570,10 @@ Umfang U = <input type="text" id="math-exercise-4-f2" data-answer="2 * pi * 5" d
   // ---------------------------------------------------------------------------
 
   document.addEventListener('DOMContentLoaded', async function () {
-    await ensurePyodide();
-    document.querySelectorAll('.math-exercise-cell').forEach(setupCell);
+    var cells = document.querySelectorAll('.math-exercise-cell');
+    if (!cells.length) return;
+    await Promise.all([ensurePyodide(), ensureKatex()]);
+    cells.forEach(setupCell);
   });
 
 })();

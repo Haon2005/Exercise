@@ -121,7 +121,7 @@ Ableitungsaufgaben als Pool – alle Varianten teilen dieselben Optionen.
 #| vars: x
 #| pool: true
 
-Berechne die Ableitung von f(x) = x².
+Berechne die Ableitung von f(x) = x². $\int 2x \, dx$
 
 f'(x) = _[2*x]
 

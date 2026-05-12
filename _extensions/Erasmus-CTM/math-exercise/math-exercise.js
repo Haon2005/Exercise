@@ -56,7 +56,20 @@
     link.rel = 'stylesheet'; link.href = KATEX + 'katex.min.css';
     document.head.appendChild(link);
     await loadScript(KATEX + 'katex.min.js');
+    await loadScript(KATEX + 'contrib/auto-render.min.js');
     katexReady = true;
+  }
+
+  var KATEX_DELIMITERS = [
+    { left: '$$', right: '$$', display: true  },
+    { left: '$',  right: '$',  display: false },
+    { left: '\\(', right: '\\)', display: false },
+    { left: '\\[', right: '\\]', display: true  },
+  ];
+
+  function renderMathInQuestion(el) {
+    if (!el || typeof renderMathInElement !== 'function') return;
+    renderMathInElement(el, { delimiters: KATEX_DELIMITERS, throwOnError: false });
   }
 
   // ---------------------------------------------------------------------------
@@ -329,8 +342,12 @@
         try { sessionStorage.setItem(pkey, String(idx)); } catch(e) {}
       }
       var r = renderTaskText(tasks[idx], cell.id, vars);
-      cell.querySelector('.math-exercise-question').innerHTML = r.html;
+      var qDiv = cell.querySelector('.math-exercise-question');
+      qDiv.innerHTML = r.html;
       cell.dataset.fields = JSON.stringify(r.fieldIds);
+      renderMathInQuestion(qDiv);
+    } else {
+      renderMathInQuestion(cell.querySelector('.math-exercise-question'));
     }
 
     // Collapsible (only when caption toggle exists)
@@ -424,9 +441,11 @@
         try { sessionStorage.setItem(pkey, String(next)); } catch(e) {}
 
         var r = renderTaskText(poolTasks[next], cell.id, vars);
-        cell.querySelector('.math-exercise-question').innerHTML = r.html;
+        var qDivR = cell.querySelector('.math-exercise-question');
+        qDivR.innerHTML = r.html;
         cell.dataset.fields = JSON.stringify(r.fieldIds);
         fieldIds = r.fieldIds;
+        renderMathInQuestion(qDivR);
 
         attachKeyListeners();
         fbDiv.innerHTML = '';
@@ -495,8 +514,10 @@
   // ---------------------------------------------------------------------------
 
   document.addEventListener('DOMContentLoaded', async function () {
-    await ensurePyodide();
-    document.querySelectorAll('.math-exercise-cell').forEach(setupCell);
+    var cells = document.querySelectorAll('.math-exercise-cell');
+    if (!cells.length) return;
+    await Promise.all([ensurePyodide(), ensureKatex()]);
+    cells.forEach(setupCell);
   });
 
 })();
