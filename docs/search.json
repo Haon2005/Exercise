@@ -11,56 +11,56 @@
     "href": "about.html",
     "title": "Math Exercise – Feature-Übersicht",
     "section": "",
-    "text": "Jede mathematisch korrekte Schreibweise wird akzeptiert. pi*9, 9*pi, 3^2*pi sind alle richtig.\n\nAufgabe – Flächeninhalt eines Kreises\n\nEin Kreis hat den Radius r = 3 cm. Berechne den Flächeninhalt A.\n\nA =  cm²\n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
+    "text": "Jede mathematisch korrekte Schreibweise wird akzeptiert. pi*9, 9*pi, 3^2*pi sind alle richtig.\n\nAufgabe – Flächeninhalt eines Kreises\n\n\nEin Kreis hat den Radius r = 3 cm. Berechne den Flächeninhalt A.\n\nA =  cm²\n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
   },
   {
     "objectID": "about.html#modus-equivalent-beliebige-gleichwertige-form",
     "href": "about.html#modus-equivalent-beliebige-gleichwertige-form",
     "title": "Math Exercise – Feature-Übersicht",
     "section": "",
-    "text": "Jede mathematisch korrekte Schreibweise wird akzeptiert. pi*9, 9*pi, 3^2*pi sind alle richtig.\n\nAufgabe – Flächeninhalt eines Kreises\n\nEin Kreis hat den Radius r = 3 cm. Berechne den Flächeninhalt A.\n\nA =  cm²\n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
+    "text": "Jede mathematisch korrekte Schreibweise wird akzeptiert. pi*9, 9*pi, 3^2*pi sind alle richtig.\n\nAufgabe – Flächeninhalt eines Kreises\n\n\nEin Kreis hat den Radius r = 3 cm. Berechne den Flächeninhalt A.\n\nA =  cm²\n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
   },
   {
     "objectID": "about.html#modus-equivalent-reject-vereinfachen-erzwingen",
     "href": "about.html#modus-equivalent-reject-vereinfachen-erzwingen",
     "title": "Math Exercise – Feature-Übersicht",
     "section": "Modus: equivalent + reject – Vereinfachen erzwingen",
-    "text": "Modus: equivalent + reject – Vereinfachen erzwingen\n(x+1)^2 wird abgelehnt, obwohl korrekt. Nur eine ausmultiplizierte Form wird akzeptiert.\n\nAufgabe – Ausdruck vereinfachen\n\nMultipliziere aus und vereinfache: (x + 1)²\n\nErgebnis: \n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
+    "text": "Modus: equivalent + reject – Vereinfachen erzwingen\n(x+1)^2 wird abgelehnt, obwohl korrekt. Nur eine ausmultiplizierte Form wird akzeptiert.\n\nAufgabe – Ausdruck vereinfachen\n\n\nMultipliziere aus und vereinfache: (x + 1)²\n\nErgebnis: \n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
   },
   {
     "objectID": "about.html#modus-exact-genau-eine-bestimmte-form",
     "href": "about.html#modus-exact-genau-eine-bestimmte-form",
     "title": "Math Exercise – Feature-Übersicht",
     "section": "Modus: exact – genau eine bestimmte Form",
-    "text": "Modus: exact – genau eine bestimmte Form\nNur x^2 + 2x + 1 wird akzeptiert – (x+1)^2 oder 1 + 2x + x^2 nicht.\n\nAufgabe – Exakte Darstellung\n\nSchreibe (x + 1)² als ausmultiplizierte Summe:\n\n\n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
+    "text": "Modus: exact – genau eine bestimmte Form\nNur x^2 + 2x + 1 wird akzeptiert – (x+1)^2 oder 1 + 2x + x^2 nicht.\n\nAufgabe – Exakte Darstellung\n\n\nSchreibe (x + 1)² als ausmultiplizierte Summe:\n\n\n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
   },
   {
     "objectID": "about.html#mehrere-eingabefelder",
     "href": "about.html#mehrere-eingabefelder",
     "title": "Math Exercise – Feature-Übersicht",
     "section": "Mehrere Eingabefelder",
-    "text": "Mehrere Eingabefelder\nAlle Felder werden gemeinsam geprüft.\n\nAufgabe – Kreis mit r = 5 cm\n\nBerechne für einen Kreis mit r = 5 cm:\n\nFläche    A =  cm²\nUmfang U =  cm\n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
+    "text": "Mehrere Eingabefelder\nAlle Felder werden gemeinsam geprüft.\n\nAufgabe – Kreis mit r = 5 cm\n\n\nBerechne für einen Kreis mit r = 5 cm:\n\nFläche    A =  cm²\nUmfang U =  cm\n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
   },
   {
     "objectID": "about.html#großes-eingabefeld-___",
     "href": "about.html#großes-eingabefeld-___",
     "title": "Math Exercise – Feature-Übersicht",
     "section": "Großes Eingabefeld (___)",
-    "text": "Großes Eingabefeld (___)\n\nAufgabe – Integral\n\nBerechne das unbestimmte Integral von 2x (ohne Konstante C):\n\n∫ 2x dx = \n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
+    "text": "Großes Eingabefeld (___)\n\nAufgabe – Integral\n\n\nBerechne das unbestimmte Integral von 2x (ohne Konstante C):\n\n∫ 2x dx = \n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
   },
   {
     "objectID": "about.html#aufgaben-pool-mit-reload-button",
     "href": "about.html#aufgaben-pool-mit-reload-button",
     "title": "Math Exercise – Feature-Übersicht",
     "section": "Aufgaben-Pool mit Reload-Button",
-    "text": "Aufgaben-Pool mit Reload-Button\nBeim Laden wird eine der drei Varianten zufällig gewählt. Mit dem ↻-Button oben rechts kann eine neue Variante geladen werden.\n\nAufgabe – Kreisfläche (Zufallsaufgabe)\n\n↻\n\n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
+    "text": "Aufgaben-Pool mit Reload-Button\nBeim Laden wird eine der drei Varianten zufällig gewählt. Mit dem ↻-Button oben rechts kann eine neue Variante geladen werden.\n\nAufgabe – Kreisfläche (Zufallsaufgabe)\n\n\n↻\n\n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
   },
   {
     "objectID": "about.html#pool-mit-variablen",
     "href": "about.html#pool-mit-variablen",
     "title": "Math Exercise – Feature-Übersicht",
     "section": "Pool mit Variablen",
-    "text": "Pool mit Variablen\nAbleitungsaufgaben als Pool – alle Varianten teilen dieselben Optionen.\n\nAufgabe – Ableitung bestimmen (Zufallsaufgabe)\n\n↻\n\n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
+    "text": "Pool mit Variablen\nAbleitungsaufgaben als Pool – alle Varianten teilen dieselben Optionen.\n\nAufgabe – Ableitung bestimmen (Zufallsaufgabe)\n\n\n↻\n\n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
   },
   {
     "objectID": "about.html#ki-feedback",
@@ -81,27 +81,27 @@
     "href": "exercises.html#geometrie",
     "title": "Übungsaufgaben",
     "section": "Geometrie",
-    "text": "Geometrie\n\nSatz des Pythagoras\n\nEin rechtwinkliges Dreieck hat die Katheten a = 3 und b = 4.\nWie lang ist die Hypotenuse c?\n\nc = \n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙\n  \n\n\n\n\n\nVolumen eines Zylinders\n\nEin Zylinder hat Radius r und Höhe h.\nGib die Formel für das Volumen V an.\n\nV = \n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
+    "text": "Geometrie\n\nSatz des Pythagoras\n\n\nEin rechtwinkliges Dreieck hat die Katheten a = 3 und b = 4.\nWie lang ist die Hypotenuse c?\n\nc = \n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙\n  \n\n\n\n\n\n\nVolumen eines Zylinders\n\n\nEin Zylinder hat Radius r und Höhe h.\nGib die Formel für das Volumen V an.\n\nV = \n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
   },
   {
     "objectID": "exercises.html#algebra",
     "href": "exercises.html#algebra",
     "title": "Übungsaufgaben",
     "section": "Algebra",
-    "text": "Algebra\n\nNullstellen – Zufallsaufgabe\n\n↻\n\n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙\n  \n\n\n\n\n\nZweite binomische Formel vereinfachen\n\nMultipliziere aus: (x − 3)²\n\n\n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
+    "text": "Algebra\n\nNullstellen – Zufallsaufgabe\n\n\n↻\n\n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙\n  \n\n\n\n\n\n\nZweite binomische Formel vereinfachen\n\n\nMultipliziere aus: (x − 3)²\n\n\n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
   },
   {
     "objectID": "exercises.html#analysis",
     "href": "exercises.html#analysis",
     "title": "Übungsaufgaben",
     "section": "Analysis",
-    "text": "Analysis\n\nAbleitung bestimmen – Zufallsaufgabe\n\n↻\n\n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙\n  \n\n\n\n\n\nGrenzwert\n\nWelchen Grenzwert hat 1/x für x → ∞?\n\nlim = \n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
+    "text": "Analysis\n\nAbleitung bestimmen – Zufallsaufgabe\n\n\n↻\n\n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙\n  \n\n\n\n\n\n\nGrenzwert\n\n\nWelchen Grenzwert hat 1/x für x → ∞?\n\nlim = \n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
   },
   {
     "objectID": "exercises.html#trigonometrie",
     "href": "exercises.html#trigonometrie",
     "title": "Übungsaufgaben",
     "section": "Trigonometrie",
-    "text": "Trigonometrie\n\nTrigonometrische Werte – Zufallsaufgabe\n\n↻\n\n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
+    "text": "Trigonometrie\n\nTrigonometrische Werte – Zufallsaufgabe\n\n\n↻\n\n\n  ✓ Überprüfen\n  ⓘ Eingabe-Hilfe\n  \n    💬 Feedback\n    ⚙"
   }
 ]

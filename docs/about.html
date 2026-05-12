@@ -99,11 +99,33 @@ ul.task-list li input[type="checkbox"] {
 .math-exercise-caption {
   font-weight: 600;
   font-size: 1.05em;
-  margin-bottom: .75em;
+  margin-bottom: 0;
   color: #1a1a2e;
   border-bottom: 2px solid #dee2e6;
   padding-bottom: .35em;
 }
+
+/* Collapsible toggle */
+.math-exercise-toggle {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: .45em;
+}
+.math-exercise-toggle:hover { color: #0d6efd; border-bottom-color: #0d6efd; }
+.math-exercise-open .math-exercise-toggle { margin-bottom: .75em; }
+
+.math-chevron {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: transform .18s ease;
+  color: #6c757d;
+  font-size: .7em;
+}
+.math-chevron::before { content: '▶'; }
+.math-exercise-open .math-chevron { transform: rotate(90deg); }
 
 .math-exercise-question {
   margin-bottom: 1em;
@@ -437,8 +459,9 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="modus-equivalent-beliebige-gleichwertige-form">Modus: <code>equivalent</code> – beliebige gleichwertige Form</h2>
 <p>Jede mathematisch korrekte Schreibweise wird akzeptiert. <code>pi*9</code>, <code>9*pi</code>, <code>3^2*pi</code> sind alle richtig.</p>
 <div class="math-exercise-cell" id="math-exercise-1" data-label="kreis-equivalent" data-mode="equivalent" data-reject="" data-vars="" data-fields="[&quot;math-exercise-1-f1&quot;]">
-<div class="math-exercise-caption">Aufgabe – Flächeninhalt eines Kreises</div>
+<div class="math-exercise-caption math-exercise-toggle" role="button" tabindex="0"><span class="math-chevron" aria-hidden="true"></span>Aufgabe – Flächeninhalt eines Kreises</div>
 
+<div class="math-exercise-body" style="display:none;">
 <div class="math-exercise-question">Ein Kreis hat den Radius r = 3 cm. Berechne den Flächeninhalt A.<br>
 <br>
 A = <input type="text" id="math-exercise-1-f1" data-answer="pi * 9" data-vars="" autocomplete="off" autocorrect="off" spellcheck="false" class="math-input math-input-small"> cm²</div>
@@ -453,14 +476,16 @@ A = <input type="text" id="math-exercise-1-f1" data-answer="pi * 9" data-vars=""
 <div class="math-legend-panel" style="display:none;"></div>
 <div class="math-feedback-area"></div>
 </div>
+</div>
 <hr>
 </section>
 <section id="modus-equivalent-reject-vereinfachen-erzwingen" class="level2">
 <h2 class="anchored" data-anchor-id="modus-equivalent-reject-vereinfachen-erzwingen">Modus: <code>equivalent</code> + <code>reject</code> – Vereinfachen erzwingen</h2>
 <p><code>(x+1)^2</code> wird abgelehnt, obwohl korrekt. Nur eine ausmultiplizierte Form wird akzeptiert.</p>
 <div class="math-exercise-cell" id="math-exercise-2" data-label="potenz-vereinfachen" data-mode="equivalent" data-reject="(x+1)**2" data-vars="x" data-fields="[&quot;math-exercise-2-f1&quot;]">
-<div class="math-exercise-caption">Aufgabe – Ausdruck vereinfachen</div>
+<div class="math-exercise-caption math-exercise-toggle" role="button" tabindex="0"><span class="math-chevron" aria-hidden="true"></span>Aufgabe – Ausdruck vereinfachen</div>
 
+<div class="math-exercise-body" style="display:none;">
 <div class="math-exercise-question">Multipliziere aus und vereinfache: (x + 1)²<br>
 <br>
 Ergebnis: <input type="text" id="math-exercise-2-f1" data-answer="x**2 + 2*x + 1" data-vars="x" autocomplete="off" autocorrect="off" spellcheck="false" class="math-input math-input-small"></div>
@@ -475,14 +500,16 @@ Ergebnis: <input type="text" id="math-exercise-2-f1" data-answer="x**2 + 2*x + 1
 <div class="math-legend-panel" style="display:none;"></div>
 <div class="math-feedback-area"></div>
 </div>
+</div>
 <hr>
 </section>
 <section id="modus-exact-genau-eine-bestimmte-form" class="level2">
 <h2 class="anchored" data-anchor-id="modus-exact-genau-eine-bestimmte-form">Modus: <code>exact</code> – genau eine bestimmte Form</h2>
 <p>Nur <code>x^2 + 2x + 1</code> wird akzeptiert – <code>(x+1)^2</code> oder <code>1 + 2x + x^2</code> nicht.</p>
 <div class="math-exercise-cell" id="math-exercise-3" data-label="potenz-exakt" data-mode="exact" data-reject="" data-vars="x" data-fields="[&quot;math-exercise-3-f1&quot;]">
-<div class="math-exercise-caption">Aufgabe – Exakte Darstellung</div>
+<div class="math-exercise-caption math-exercise-toggle" role="button" tabindex="0"><span class="math-chevron" aria-hidden="true"></span>Aufgabe – Exakte Darstellung</div>
 
+<div class="math-exercise-body" style="display:none;">
 <div class="math-exercise-question">Schreibe (x + 1)² als ausmultiplizierte Summe:<br>
 <br>
 <input type="text" id="math-exercise-3-f1" data-answer="x**2 + 2*x + 1" data-vars="x" autocomplete="off" autocorrect="off" spellcheck="false" class="math-input math-input-small"></div>
@@ -497,14 +524,16 @@ Ergebnis: <input type="text" id="math-exercise-2-f1" data-answer="x**2 + 2*x + 1
 <div class="math-legend-panel" style="display:none;"></div>
 <div class="math-feedback-area"></div>
 </div>
+</div>
 <hr>
 </section>
 <section id="mehrere-eingabefelder" class="level2">
 <h2 class="anchored" data-anchor-id="mehrere-eingabefelder">Mehrere Eingabefelder</h2>
 <p>Alle Felder werden gemeinsam geprüft.</p>
 <div class="math-exercise-cell" id="math-exercise-4" data-label="kreis-beide" data-mode="equivalent" data-reject="" data-vars="" data-fields="[&quot;math-exercise-4-f1&quot;,&quot;math-exercise-4-f2&quot;]">
-<div class="math-exercise-caption">Aufgabe – Kreis mit r = 5 cm</div>
+<div class="math-exercise-caption math-exercise-toggle" role="button" tabindex="0"><span class="math-chevron" aria-hidden="true"></span>Aufgabe – Kreis mit r = 5 cm</div>
 
+<div class="math-exercise-body" style="display:none;">
 <div class="math-exercise-question">Berechne für einen Kreis mit r = 5 cm:<br>
 <br>
 Fläche &nbsp;&nbsp; A = <input type="text" id="math-exercise-4-f1" data-answer="pi * 25" data-vars="" autocomplete="off" autocorrect="off" spellcheck="false" class="math-input math-input-small"> cm²<br>
@@ -520,13 +549,15 @@ Umfang U = <input type="text" id="math-exercise-4-f2" data-answer="2 * pi * 5" d
 <div class="math-legend-panel" style="display:none;"></div>
 <div class="math-feedback-area"></div>
 </div>
+</div>
 <hr>
 </section>
 <section id="großes-eingabefeld-___" class="level2">
 <h2 class="anchored" data-anchor-id="großes-eingabefeld-___">Großes Eingabefeld (<code>___</code>)</h2>
 <div class="math-exercise-cell" id="math-exercise-5" data-label="integral" data-mode="equivalent" data-reject="" data-vars="x" data-fields="[&quot;math-exercise-5-f1&quot;]">
-<div class="math-exercise-caption">Aufgabe – Integral</div>
+<div class="math-exercise-caption math-exercise-toggle" role="button" tabindex="0"><span class="math-chevron" aria-hidden="true"></span>Aufgabe – Integral</div>
 
+<div class="math-exercise-body" style="display:none;">
 <div class="math-exercise-question">Berechne das unbestimmte Integral von 2x (ohne Konstante C):<br>
 <br>
 ∫ 2x dx = <textarea id="math-exercise-5-f1" data-answer="x**2" data-vars="x" autocomplete="off" autocorrect="off" spellcheck="false" class="math-input math-input-large" rows="2"></textarea></div>
@@ -541,14 +572,16 @@ Umfang U = <input type="text" id="math-exercise-4-f2" data-answer="2 * pi * 5" d
 <div class="math-legend-panel" style="display:none;"></div>
 <div class="math-feedback-area"></div>
 </div>
+</div>
 <hr>
 </section>
 <section id="aufgaben-pool-mit-reload-button" class="level2">
 <h2 class="anchored" data-anchor-id="aufgaben-pool-mit-reload-button">Aufgaben-Pool mit Reload-Button</h2>
 <p>Beim Laden wird eine der drei Varianten zufällig gewählt. Mit dem <strong>↻-Button</strong> oben rechts kann eine neue Variante geladen werden.</p>
 <div class="math-exercise-cell" id="math-exercise-6" data-label="kreis-pool" data-mode="equivalent" data-reject="" data-vars="" data-pool="[&quot;Berechne die Fläche eines Kreises mit r = 3 cm.\n\nA = _[pi * 9] cm²&quot;,&quot;Berechne die Fläche eines Kreises mit r = 5 cm.\n\nA = _[pi * 25] cm²&quot;,&quot;Berechne die Fläche eines Kreises mit r = 7 cm.\n\nA = _[pi * 49] cm²&quot;]" data-fields="[]">
-<div class="math-exercise-caption">Aufgabe – Kreisfläche (Zufallsaufgabe)</div>
+<div class="math-exercise-caption math-exercise-toggle" role="button" tabindex="0"><span class="math-chevron" aria-hidden="true"></span>Aufgabe – Kreisfläche (Zufallsaufgabe)</div>
 
+<div class="math-exercise-body" style="display:none;">
 <button type="button" class="math-pool-reload" title="Neue Zufallsaufgabe laden">↻</button>
 <div class="math-exercise-question"></div>
 <div class="math-exercise-controls">
@@ -561,6 +594,7 @@ Umfang U = <input type="text" id="math-exercise-4-f2" data-answer="2 * pi * 5" d
 </div>
 <div class="math-legend-panel" style="display:none;"></div>
 <div class="math-feedback-area"></div>
+</div>
 </div>
 <hr>
 </section>
@@ -568,8 +602,9 @@ Umfang U = <input type="text" id="math-exercise-4-f2" data-answer="2 * pi * 5" d
 <h2 class="anchored" data-anchor-id="pool-mit-variablen">Pool mit Variablen</h2>
 <p>Ableitungsaufgaben als Pool – alle Varianten teilen dieselben Optionen.</p>
 <div class="math-exercise-cell" id="math-exercise-7" data-label="ableitung-pool" data-mode="equivalent" data-reject="" data-vars="x" data-pool="[&quot;Berechne die Ableitung von f(x) = x².\n\nf'(x) = _[2*x]&quot;,&quot;Berechne die Ableitung von f(x) = x³.\n\nf'(x) = _[3*x**2]&quot;,&quot;Berechne die Ableitung von f(x) = x⁴.\n\nf'(x) = _[4*x**3]&quot;]" data-fields="[]">
-<div class="math-exercise-caption">Aufgabe – Ableitung bestimmen (Zufallsaufgabe)</div>
+<div class="math-exercise-caption math-exercise-toggle" role="button" tabindex="0"><span class="math-chevron" aria-hidden="true"></span>Aufgabe – Ableitung bestimmen (Zufallsaufgabe)</div>
 
+<div class="math-exercise-body" style="display:none;">
 <button type="button" class="math-pool-reload" title="Neue Zufallsaufgabe laden">↻</button>
 <div class="math-exercise-question"></div>
 <div class="math-exercise-controls">
@@ -582,6 +617,7 @@ Umfang U = <input type="text" id="math-exercise-4-f2" data-answer="2 * pi * 5" d
 </div>
 <div class="math-legend-panel" style="display:none;"></div>
 <div class="math-feedback-area"></div>
+</div>
 </div>
 <hr>
 </section>
@@ -1213,8 +1249,7 @@ Umfang U = <input type="text" id="math-exercise-4-f2" data-answer="2 * pi * 5" d
     '        _mres = {"status": "correct"} if str(_ms) == str(_mc) else {"status": "not_exact"}',
     '    elif _math_reject.strip():',
     '        _mr  = parse_expr(_math_reject, local_dict=_local, transformations=_math_tf)',
-    '        _rd  = simplify(_ms - _mr)',
-    '        _rej = (_rd == 0) or (_rd.is_number and abs(float(_rd.evalf())) < 1e-10)',
+    '        _rej = (str(_ms) == str(_mr))',
     '        _mres = {"status": "rejected"} if _rej else {"status": "correct"}',
     '    else:',
     '        _mres = {"status": "correct"}',
@@ -1352,6 +1387,20 @@ Umfang U = <input type="text" id="math-exercise-4-f2" data-answer="2 * pi * 5" d
       var r = renderTaskText(tasks[idx], cell.id, vars);
       cell.querySelector('.math-exercise-question').innerHTML = r.html;
       cell.dataset.fields = JSON.stringify(r.fieldIds);
+    }
+
+    // Collapsible (only when caption toggle exists)
+    var toggleEl = cell.querySelector('.math-exercise-toggle');
+    var bodyEl   = cell.querySelector('.math-exercise-body');
+    if (toggleEl && bodyEl) {
+      function toggleOpen() {
+        var open = cell.classList.toggle('math-exercise-open');
+        bodyEl.style.display = open ? '' : 'none';
+      }
+      toggleEl.addEventListener('click', toggleOpen);
+      toggleEl.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleOpen(); }
+      });
     }
 
     var fieldIds    = JSON.parse(cell.dataset.fields || '[]');

@@ -99,11 +99,33 @@ ul.task-list li input[type="checkbox"] {
 .math-exercise-caption {
   font-weight: 600;
   font-size: 1.05em;
-  margin-bottom: .75em;
+  margin-bottom: 0;
   color: #1a1a2e;
   border-bottom: 2px solid #dee2e6;
   padding-bottom: .35em;
 }
+
+/* Collapsible toggle */
+.math-exercise-toggle {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: .45em;
+}
+.math-exercise-toggle:hover { color: #0d6efd; border-bottom-color: #0d6efd; }
+.math-exercise-open .math-exercise-toggle { margin-bottom: .75em; }
+
+.math-chevron {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: transform .18s ease;
+  color: #6c757d;
+  font-size: .7em;
+}
+.math-chevron::before { content: '▶'; }
+.math-exercise-open .math-chevron { transform: rotate(90deg); }
 
 .math-exercise-question {
   margin-bottom: 1em;
@@ -434,8 +456,9 @@ ul.task-list li input[type="checkbox"] {
 <section id="geometrie" class="level2">
 <h2 class="anchored" data-anchor-id="geometrie">Geometrie</h2>
 <div class="math-exercise-cell" id="math-exercise-1" data-label="pythagoras" data-mode="equivalent" data-reject="" data-vars="" data-fields="[&quot;math-exercise-1-f1&quot;]">
-<div class="math-exercise-caption">Satz des Pythagoras</div>
+<div class="math-exercise-caption math-exercise-toggle" role="button" tabindex="0"><span class="math-chevron" aria-hidden="true"></span>Satz des Pythagoras</div>
 
+<div class="math-exercise-body" style="display:none;">
 <div class="math-exercise-question">Ein rechtwinkliges Dreieck hat die Katheten a = 3 und b = 4.<br>
 Wie lang ist die Hypotenuse c?<br>
 <br>
@@ -451,9 +474,11 @@ c = <input type="text" id="math-exercise-1-f1" data-answer="5" data-vars="" auto
 <div class="math-legend-panel" style="display:none;"></div>
 <div class="math-feedback-area"></div>
 </div>
+</div>
 <div class="math-exercise-cell" id="math-exercise-2" data-label="zylinder-volumen" data-mode="equivalent" data-reject="" data-vars="r, h" data-fields="[&quot;math-exercise-2-f1&quot;]">
-<div class="math-exercise-caption">Volumen eines Zylinders</div>
+<div class="math-exercise-caption math-exercise-toggle" role="button" tabindex="0"><span class="math-chevron" aria-hidden="true"></span>Volumen eines Zylinders</div>
 
+<div class="math-exercise-body" style="display:none;">
 <div class="math-exercise-question">Ein Zylinder hat Radius r und Höhe h.<br>
 Gib die Formel für das Volumen V an.<br>
 <br>
@@ -469,13 +494,15 @@ V = <input type="text" id="math-exercise-2-f1" data-answer="pi * r**2 * h" data-
 <div class="math-legend-panel" style="display:none;"></div>
 <div class="math-feedback-area"></div>
 </div>
+</div>
 <hr>
 </section>
 <section id="algebra" class="level2">
 <h2 class="anchored" data-anchor-id="algebra">Algebra</h2>
 <div class="math-exercise-cell" id="math-exercise-3" data-label="quadratische-formel" data-mode="equivalent" data-reject="" data-vars="x" data-pool="[&quot;Bestimme eine Nullstelle von f(x) = x² − 4.\n\nx = _[2]&quot;,&quot;Bestimme eine Nullstelle von f(x) = x² − 9.\n\nx = _[3]&quot;,&quot;Bestimme eine Nullstelle von f(x) = x² − 25.\n\nx = _[5]&quot;]" data-fields="[]">
-<div class="math-exercise-caption">Nullstellen – Zufallsaufgabe</div>
+<div class="math-exercise-caption math-exercise-toggle" role="button" tabindex="0"><span class="math-chevron" aria-hidden="true"></span>Nullstellen – Zufallsaufgabe</div>
 
+<div class="math-exercise-body" style="display:none;">
 <button type="button" class="math-pool-reload" title="Neue Zufallsaufgabe laden">↻</button>
 <div class="math-exercise-question"></div>
 <div class="math-exercise-controls">
@@ -489,9 +516,11 @@ V = <input type="text" id="math-exercise-2-f1" data-answer="pi * r**2 * h" data-
 <div class="math-legend-panel" style="display:none;"></div>
 <div class="math-feedback-area"></div>
 </div>
+</div>
 <div class="math-exercise-cell" id="math-exercise-4" data-label="binomische-formel" data-mode="equivalent" data-reject="(x-3)**2" data-vars="x" data-fields="[&quot;math-exercise-4-f1&quot;]">
-<div class="math-exercise-caption">Zweite binomische Formel vereinfachen</div>
+<div class="math-exercise-caption math-exercise-toggle" role="button" tabindex="0"><span class="math-chevron" aria-hidden="true"></span>Zweite binomische Formel vereinfachen</div>
 
+<div class="math-exercise-body" style="display:none;">
 <div class="math-exercise-question">Multipliziere aus: (x − 3)²<br>
 <br>
 <input type="text" id="math-exercise-4-f1" data-answer="x**2 - 6*x + 9" data-vars="x" autocomplete="off" autocorrect="off" spellcheck="false" class="math-input math-input-small"></div>
@@ -506,13 +535,15 @@ V = <input type="text" id="math-exercise-2-f1" data-answer="pi * r**2 * h" data-
 <div class="math-legend-panel" style="display:none;"></div>
 <div class="math-feedback-area"></div>
 </div>
+</div>
 <hr>
 </section>
 <section id="analysis" class="level2">
 <h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
 <div class="math-exercise-cell" id="math-exercise-5" data-label="ableitung-pool" data-mode="equivalent" data-reject="" data-vars="x" data-pool="[&quot;Leite ab: f(x) = 3x²\n\nf'(x) = _[6*x]&quot;,&quot;Leite ab: f(x) = 5x³\n\nf'(x) = _[15*x**2]&quot;,&quot;Leite ab: f(x) = x⁴ + 2x\n\nf'(x) = _[4*x**3 + 2]&quot;]" data-fields="[]">
-<div class="math-exercise-caption">Ableitung bestimmen – Zufallsaufgabe</div>
+<div class="math-exercise-caption math-exercise-toggle" role="button" tabindex="0"><span class="math-chevron" aria-hidden="true"></span>Ableitung bestimmen – Zufallsaufgabe</div>
 
+<div class="math-exercise-body" style="display:none;">
 <button type="button" class="math-pool-reload" title="Neue Zufallsaufgabe laden">↻</button>
 <div class="math-exercise-question"></div>
 <div class="math-exercise-controls">
@@ -526,9 +557,11 @@ V = <input type="text" id="math-exercise-2-f1" data-answer="pi * r**2 * h" data-
 <div class="math-legend-panel" style="display:none;"></div>
 <div class="math-feedback-area"></div>
 </div>
+</div>
 <div class="math-exercise-cell" id="math-exercise-6" data-label="grenzwert" data-mode="equivalent" data-reject="" data-vars="" data-fields="[&quot;math-exercise-6-f1&quot;]">
-<div class="math-exercise-caption">Grenzwert</div>
+<div class="math-exercise-caption math-exercise-toggle" role="button" tabindex="0"><span class="math-chevron" aria-hidden="true"></span>Grenzwert</div>
 
+<div class="math-exercise-body" style="display:none;">
 <div class="math-exercise-question">Welchen Grenzwert hat 1/x für x → ∞?<br>
 <br>
 lim = <input type="text" id="math-exercise-6-f1" data-answer="0" data-vars="" autocomplete="off" autocorrect="off" spellcheck="false" class="math-input math-input-small"></div>
@@ -543,13 +576,15 @@ lim = <input type="text" id="math-exercise-6-f1" data-answer="0" data-vars="" au
 <div class="math-legend-panel" style="display:none;"></div>
 <div class="math-feedback-area"></div>
 </div>
+</div>
 <hr>
 </section>
 <section id="trigonometrie" class="level2">
 <h2 class="anchored" data-anchor-id="trigonometrie">Trigonometrie</h2>
 <div class="math-exercise-cell" id="math-exercise-7" data-label="trig-werte" data-mode="equivalent" data-reject="" data-vars="" data-pool="[&quot;Berechne: sin(π/2)\n\n_[1]&quot;,&quot;Berechne: cos(0)\n\n_[1]&quot;,&quot;Berechne: tan(π/4)\n\n_[1]&quot;]" data-fields="[]">
-<div class="math-exercise-caption">Trigonometrische Werte – Zufallsaufgabe</div>
+<div class="math-exercise-caption math-exercise-toggle" role="button" tabindex="0"><span class="math-chevron" aria-hidden="true"></span>Trigonometrische Werte – Zufallsaufgabe</div>
 
+<div class="math-exercise-body" style="display:none;">
 <button type="button" class="math-pool-reload" title="Neue Zufallsaufgabe laden">↻</button>
 <div class="math-exercise-question"></div>
 <div class="math-exercise-controls">
@@ -562,6 +597,7 @@ lim = <input type="text" id="math-exercise-6-f1" data-answer="0" data-vars="" au
 </div>
 <div class="math-legend-panel" style="display:none;"></div>
 <div class="math-feedback-area"></div>
+</div>
 </div>
 
 
@@ -1165,8 +1201,7 @@ lim = <input type="text" id="math-exercise-6-f1" data-answer="0" data-vars="" au
     '        _mres = {"status": "correct"} if str(_ms) == str(_mc) else {"status": "not_exact"}',
     '    elif _math_reject.strip():',
     '        _mr  = parse_expr(_math_reject, local_dict=_local, transformations=_math_tf)',
-    '        _rd  = simplify(_ms - _mr)',
-    '        _rej = (_rd == 0) or (_rd.is_number and abs(float(_rd.evalf())) < 1e-10)',
+    '        _rej = (str(_ms) == str(_mr))',
     '        _mres = {"status": "rejected"} if _rej else {"status": "correct"}',
     '    else:',
     '        _mres = {"status": "correct"}',
@@ -1304,6 +1339,20 @@ lim = <input type="text" id="math-exercise-6-f1" data-answer="0" data-vars="" au
       var r = renderTaskText(tasks[idx], cell.id, vars);
       cell.querySelector('.math-exercise-question').innerHTML = r.html;
       cell.dataset.fields = JSON.stringify(r.fieldIds);
+    }
+
+    // Collapsible (only when caption toggle exists)
+    var toggleEl = cell.querySelector('.math-exercise-toggle');
+    var bodyEl   = cell.querySelector('.math-exercise-body');
+    if (toggleEl && bodyEl) {
+      function toggleOpen() {
+        var open = cell.classList.toggle('math-exercise-open');
+        bodyEl.style.display = open ? '' : 'none';
+      }
+      toggleEl.addEventListener('click', toggleOpen);
+      toggleEl.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleOpen(); }
+      });
     }
 
     var fieldIds    = JSON.parse(cell.dataset.fields || '[]');
