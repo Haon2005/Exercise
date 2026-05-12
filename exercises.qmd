@@ -1,0 +1,130 @@
+---
+title: "Übungsaufgaben"
+filters:
+  - Erasmus-CTM/math-exercise
+---
+
+Diese Seite testet, ob der API-Schlüssel aus der Konfiguration auf der
+[Beispielseite](about.qmd) hier weiterhin gilt – ohne erneute Eingabe.
+
+---
+
+## Geometrie
+
+```{math-exercise}
+#| label: pythagoras
+#| caption: Satz des Pythagoras
+Ein rechtwinkliges Dreieck hat die Katheten a = 3 und b = 4.
+Wie lang ist die Hypotenuse c?
+
+c = _[5]
+```
+
+```{math-exercise}
+#| label: zylinder-volumen
+#| caption: Volumen eines Zylinders
+#| vars: r, h
+Ein Zylinder hat Radius r und Höhe h.
+Gib die Formel für das Volumen V an.
+
+V = _[pi * r**2 * h]
+```
+
+---
+
+## Algebra
+
+```{math-exercise}
+#| label: quadratische-formel
+#| caption: Nullstellen – Zufallsaufgabe
+#| vars: x
+#| pool: true
+
+Bestimme eine Nullstelle von f(x) = x² − 4.
+
+x = _[2]
+
+---
+
+Bestimme eine Nullstelle von f(x) = x² − 9.
+
+x = _[3]
+
+---
+
+Bestimme eine Nullstelle von f(x) = x² − 25.
+
+x = _[5]
+```
+
+```{math-exercise}
+#| label: binomische-formel
+#| caption: Zweite binomische Formel vereinfachen
+#| vars: x
+#| mode: equivalent
+#| reject: (x-3)**2
+Multipliziere aus: (x − 3)²
+
+_[x**2 - 6*x + 9]
+```
+
+---
+
+## Analysis
+
+```{math-exercise}
+#| label: ableitung-pool
+#| caption: Ableitung bestimmen – Zufallsaufgabe
+#| vars: x
+#| pool: true
+
+Leite ab: f(x) = 3x²
+
+f'(x) = _[6*x]
+
+---
+
+Leite ab: f(x) = 5x³
+
+f'(x) = _[15*x**2]
+
+---
+
+Leite ab: f(x) = x⁴ + 2x
+
+f'(x) = _[4*x**3 + 2]
+```
+
+```{math-exercise}
+#| label: grenzwert
+#| caption: Grenzwert
+Welchen Grenzwert hat 1/x für x → ∞?
+
+lim = _[0]
+```
+
+---
+
+## Trigonometrie
+
+```{math-exercise}
+#| label: trig-werte
+#| caption: Trigonometrische Werte – Zufallsaufgabe
+#| pool: true
+
+Berechne: sin(π/2)
+
+_[1]
+
+---
+
+Berechne: cos(0)
+
+_[1]
+
+---
+
+Berechne: tan(π/4)
+
+_[1]
+```

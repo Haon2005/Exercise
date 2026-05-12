@@ -1,0 +1,324 @@
+/* ============================================================
+   py-exercise – Quarto extension
+   Interactive Python exercise cells with hidden unit tests.
+   ============================================================ */
+
+/* Exercise container */
+.py-exercise-cell {
+  border: 1px solid #dee2e6;
+  border-left: 4px solid #0d6efd;
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  background: #f8f9fa;
+}
+
+/* Monaco editor wrapper */
+.py-exercise-editor {
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  overflow: hidden;
+  min-height: 80px;
+  margin-bottom: 0.75rem;
+  background: #ffffff;
+}
+
+/* Button bar */
+.py-exercise-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.py-exercise-check,
+.py-exercise-reset {
+  font-size: 0.875rem;
+}
+
+/* Running indicator */
+.py-exercise-running {
+  color: #6c757d;
+  font-style: italic;
+  padding: 0.4rem 0;
+}
+
+/* Error box (student code has a runtime / syntax error) */
+.py-exercise-error {
+  background: #fff3f3;
+  border: 1px solid #f5c2c7;
+  border-radius: 4px;
+  padding: 0.75rem;
+  color: #842029;
+}
+
+.py-exercise-error pre {
+  font-size: 0.8rem;
+  margin: 0.5rem 0 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: inherit;
+}
+
+/* Captured stdout from student code */
+.py-exercise-stdout {
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 0.4rem 0.75rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.875rem;
+}
+
+.py-exercise-stdout-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6c757d;
+  margin-bottom: 0.2rem;
+}
+
+.py-exercise-stdout pre {
+  margin: 0;
+  background: transparent;
+  border: none;
+  padding: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Test summary */
+.py-exercise-summary {
+  padding: 0.25rem 0;
+}
+
+.py-exercise-all-passed {
+  color: #0f5132;
+  background: #d1e7dd;
+  border: 1px solid #badbcc;
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+}
+
+.py-exercise-some-failed {
+  color: #842029;
+  background: #f8d7da;
+  border: 1px solid #f5c2c7;
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Per-test list (shown when there are multiple tests) */
+.py-exercise-test-list {
+  list-style: none;
+  padding: 0.25rem 0 0;
+  margin: 0;
+}
+
+.py-exercise-test-list li {
+  padding: 0.15rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.py-test-pass { color: #0f5132; }
+.py-test-fail { color: #842029; }
+
+/* Forbidden construct violations */
+.py-exercise-violations {
+  background: #fff3cd;
+  border: 1px solid #ffecb5;
+  border-left: 4px solid #ffc107;
+  border-radius: 4px;
+  padding: 0.75rem;
+  color: #664d03;
+}
+
+.py-exercise-violation-list {
+  margin: 0.4rem 0 0;
+  padding-left: 1.25rem;
+  font-size: 0.875rem;
+}
+
+.py-exercise-violation-list li {
+  padding: 0.1rem 0;
+}
+
+/* Single-test hint / assertion message */
+.py-exercise-hint {
+  color: #664d03;
+  background: #fff3cd;
+  border: 1px solid #ffecb5;
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* ============================================================
+   Submission header & footer
+   ============================================================ */
+
+.py-submission-header {
+  border: 1px solid #c3cfe2;
+  border-left: 4px solid #198754;
+  border-radius: 6px;
+  background: #f0faf4;
+  padding: 0.85rem 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.py-submission-header-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.py-submission-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.py-submission-fields {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.py-submission-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 160px;
+}
+
+.py-submission-field label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #555;
+}
+
+.py-submission-field input {
+  font-size: 0.9rem;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.py-submission-field input:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 2px rgba(25, 135, 84, 0.2);
+}
+
+/* Footer */
+.py-submission-footer {
+  border: 1px solid #c3cfe2;
+  border-left: 4px solid #198754;
+  border-radius: 6px;
+  background: #f0faf4;
+  padding: 1rem 1.25rem;
+  margin-top: 2rem;
+}
+
+.py-submission-export-btn {
+  font-size: 0.9rem;
+}
+
+.py-submission-msg {
+  margin-top: 0.5rem;
+}
+
+.py-submission-error {
+  color: #842029;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.py-submission-output-wrap {
+  margin-top: 0.75rem;
+}
+
+.py-submission-output-labelrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.py-submission-output-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.py-submission-copy-btn {
+  font-size: 0.78rem;
+  padding: 0.15rem 0.5rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.py-submission-copy-ok {
+  background-color: #d1e7dd !important;
+  color: #0f5132 !important;
+  border-color: #badbcc !important;
+}
+
+/* Download section (inside submission footer or standalone) */
+.py-download-footer {
+  border: 1px solid #dee2e6;
+  border-left: 4px solid #6c757d;
+  border-radius: 6px;
+  background: #f8f9fa;
+  padding: 0.85rem 1.25rem;
+  margin-top: 2rem;
+}
+
+.py-download-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.py-download-btn {
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.py-download-hint {
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+.py-footer-sep {
+  margin: 0.75rem 0;
+  border-color: #ced4da;
+}
+
+.py-submission-output {
+  width: 100%;
+  font-family: monospace;
+  font-size: 0.78rem;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  background: #fff;
+  resize: vertical;
+  color: #333;
+  cursor: pointer;
+}
+

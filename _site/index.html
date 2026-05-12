@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Py-Exercise ohne Pyodide Block – Extension</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style type="text/css">
+/* ============================================================
+   py-exercise – Quarto extension
+   Interactive Python exercise cells with hidden unit tests.
+   ============================================================ */
+
+/* Exercise container */
+.py-exercise-cell {
+  border: 1px solid #dee2e6;
+  border-left: 4px solid #0d6efd;
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  background: #f8f9fa;
+}
+
+/* Monaco editor wrapper */
+.py-exercise-editor {
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  overflow: hidden;
+  min-height: 80px;
+  margin-bottom: 0.75rem;
+  background: #ffffff;
+}
+
+/* Button bar */
+.py-exercise-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.py-exercise-check,
+.py-exercise-reset {
+  font-size: 0.875rem;
+}
+
+/* Running indicator */
+.py-exercise-running {
+  color: #6c757d;
+  font-style: italic;
+  padding: 0.4rem 0;
+}
+
+/* Error box (student code has a runtime / syntax error) */
+.py-exercise-error {
+  background: #fff3f3;
+  border: 1px solid #f5c2c7;
+  border-radius: 4px;
+  padding: 0.75rem;
+  color: #842029;
+}
+
+.py-exercise-error pre {
+  font-size: 0.8rem;
+  margin: 0.5rem 0 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: inherit;
+}
+
+/* Captured stdout from student code */
+.py-exercise-stdout {
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 0.4rem 0.75rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.875rem;
+}
+
+.py-exercise-stdout-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6c757d;
+  margin-bottom: 0.2rem;
+}
+
+.py-exercise-stdout pre {
+  margin: 0;
+  background: transparent;
+  border: none;
+  padding: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Test summary */
+.py-exercise-summary {
+  padding: 0.25rem 0;
+}
+
+.py-exercise-all-passed {
+  color: #0f5132;
+  background: #d1e7dd;
+  border: 1px solid #badbcc;
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+}
+
+.py-exercise-some-failed {
+  color: #842029;
+  background: #f8d7da;
+  border: 1px solid #f5c2c7;
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Per-test list (shown when there are multiple tests) */
+.py-exercise-test-list {
+  list-style: none;
+  padding: 0.25rem 0 0;
+  margin: 0;
+}
+
+.py-exercise-test-list li {
+  padding: 0.15rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.py-test-pass { color: #0f5132; }
+.py-test-fail { color: #842029; }
+
+/* Forbidden construct violations */
+.py-exercise-violations {
+  background: #fff3cd;
+  border: 1px solid #ffecb5;
+  border-left: 4px solid #ffc107;
+  border-radius: 4px;
+  padding: 0.75rem;
+  color: #664d03;
+}
+
+.py-exercise-violation-list {
+  margin: 0.4rem 0 0;
+  padding-left: 1.25rem;
+  font-size: 0.875rem;
+}
+
+.py-exercise-violation-list li {
+  padding: 0.1rem 0;
+}
+
+/* Single-test hint / assertion message */
+.py-exercise-hint {
+  color: #664d03;
+  background: #fff3cd;
+  border: 1px solid #ffecb5;
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* ============================================================
+   Submission header & footer
+   ============================================================ */
+
+.py-submission-header {
+  border: 1px solid #c3cfe2;
+  border-left: 4px solid #198754;
+  border-radius: 6px;
+  background: #f0faf4;
+  padding: 0.85rem 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.py-submission-header-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.py-submission-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.py-submission-fields {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.py-submission-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 160px;
+}
+
+.py-submission-field label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #555;
+}
+
+.py-submission-field input {
+  font-size: 0.9rem;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.py-submission-field input:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 2px rgba(25, 135, 84, 0.2);
+}
+
+/* Footer */
+.py-submission-footer {
+  border: 1px solid #c3cfe2;
+  border-left: 4px solid #198754;
+  border-radius: 6px;
+  background: #f0faf4;
+  padding: 1rem 1.25rem;
+  margin-top: 2rem;
+}
+
+.py-submission-export-btn {
+  font-size: 0.9rem;
+}
+
+.py-submission-msg {
+  margin-top: 0.5rem;
+}
+
+.py-submission-error {
+  color: #842029;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.py-submission-output-wrap {
+  margin-top: 0.75rem;
+}
+
+.py-submission-output-labelrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.py-submission-output-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.py-submission-copy-btn {
+  font-size: 0.78rem;
+  padding: 0.15rem 0.5rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.py-submission-copy-ok {
+  background-color: #d1e7dd !important;
+  color: #0f5132 !important;
+  border-color: #badbcc !important;
+}
+
+/* Download section (inside submission footer or standalone) */
+.py-download-footer {
+  border: 1px solid #dee2e6;
+  border-left: 4px solid #6c757d;
+  border-radius: 6px;
+  background: #f8f9fa;
+  padding: 0.85rem 1.25rem;
+  margin-top: 2rem;
+}
+
+.py-download-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.py-download-btn {
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.py-download-hint {
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+.py-footer-sep {
+  margin: 0.75rem 0;
+  border-color: #ced4da;
+}
+
+.py-submission-output {
+  width: 100%;
+  font-family: monospace;
+  font-size: 0.78rem;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  background: #fff;
+  resize: vertical;
+  color: #333;
+  cursor: pointer;
+}
+
+
+</style>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Extension</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">Beispiele</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./exercises.html"> 
+<span class="menu-text">Übungsaufgaben</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+<script>window.__pyExerciseConfig = {"lang":"en","submission":false,"submissionKey":"py-exercise"};</script>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Py-Exercise ohne Pyodide Block</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Hier wird Py-Exercise verwendet, ohne dass eine Pyodide-Block auf der gleichen Seite exisistieren muss.</p>
+<div class="py-exercise-cell" id="py-exercise-1">
+  <noscript>
+    Please enable JavaScript to load the interactive exercise.
+  </noscript>
+</div>
+<script>
+(window.__pyExercises = window.__pyExercises || []).push({"caption":"Aufgabe 1 – Addition","forbiddenImports":[],"forbiddenKeywords":[],"id":1,"label":"aufgabe-1","showTestHints":true,"starter":"def add(a, b):\n    pass","tests":"assert add(1, 2) == 3\nassert add(0, 0) == 0"});
+</script>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<script type="text/javascript">
+(function () {
+  'use strict';
+
+  // ---------------------------------------------------------------------------
+  // Locales – add new languages here
+  // ---------------------------------------------------------------------------
+
+  var LOCALES = {
+    en: {
+      btnCheck:             '<i class="fa-solid fa-check"></i> Check',
+      btnCheckTitle:        'Run checks (Shift+Enter)',
+      btnReset:             '<i class="fa-solid fa-arrows-rotate"></i> Reset',
+      btnResetTitle:        'Restore starter code',
+      running:              '⏳ Checking…',
+      errorHeader:          '❌ Error in code:',
+      unexpectedError:      '❌ Unexpected error:',
+      stdoutLabel:          'Output:',
+      allPassed: function (n) {
+        return '✅ All ' + n + ' test' + (n === 1 ? '' : 's') + ' passed!';
+      },
+      someFailed: function (p, t) {
+        return '❌ ' + p + ' of ' + t + ' test' + (t === 1 ? '' : 's') + ' passed';
+      },
+      violationsHeader:     '🚫 Not allowed:',
+      // Submission UI
+      submissionTitle:      '📋 Submission',
+      studentIdLabel:       'Student ID',
+      studentIdPlaceholder: 'e.g. s123456',
+      quizIdLabel:          'Quiz ID',
+      quizIdPlaceholder:    'e.g. quiz-01',
+      exportBtn:            '<i class="fa-solid fa-file-export"></i> Export results',
+      outputLabel:          'Copy encoded string and submit:',
+      copyBtn:              '<i class="fa-regular fa-copy"></i> Copy',
+      copyOk:               '<i class="fa-solid fa-check"></i> Copied!',
+      validationError:      'Please fill in Student ID and Quiz ID.',
+      encodingError:        'Error during encoding: ',
+      // Download
+      downloadBtn:          '<i class="fa-solid fa-download"></i> Download as JSON',
+      downloadBtnTitle:     'Save current code and test results for all exercises',
+      downloadHint:         'Saves your code and test results for personal documentation.',
+      downloadFilename:     'exercises-',
+      // Python message templates – use {} as placeholder for str.format()
+      msgForbiddenImport:   "Forbidden import: '{}'",
+      msgForbiddenFunction: "Forbidden function: '{}'",
+      msgForbiddenMethod:   "Forbidden method: '.{}'",
+      msgForbiddenKeyword:  "Forbidden keyword: '{}'",
+      msgAssertionFailed:   'Assertion failed',
+      msgTestError:         'Error: {}',
+      msgSyntaxError:       'Syntax error in tests: {}',
+    },
+    de: {
+      btnCheck:             '<i class="fa-solid fa-check"></i> Überprüfen',
+      btnCheckTitle:        'Code prüfen (Shift+Enter)',
+      btnReset:             '<i class="fa-solid fa-arrows-rotate"></i> Zurücksetzen',
+      btnResetTitle:        'Starter-Code wiederherstellen',
+      running:              '⏳ Überprüfe…',
+      errorHeader:          '❌ Fehler im Code:',
+      unexpectedError:      '❌ Unerwarteter Fehler:',
+      stdoutLabel:          'Ausgabe:',
+      allPassed: function (n) {
+        return '✅ Alle ' + n + ' Test' + (n === 1 ? '' : 's') + ' bestanden!';
+      },
+      someFailed: function (p, t) {
+        return '❌ ' + p + ' von ' + t + ' Test' + (t === 1 ? '' : 's') + ' bestanden';
+      },
+      violationsHeader:     '🚫 Nicht erlaubt:',
+      // Submission UI
+      submissionTitle:      '📋 Abgabe',
+      studentIdLabel:       'Student-ID',
+      studentIdPlaceholder: 'z.B. s123456',
+      quizIdLabel:          'Quiz-ID',
+      quizIdPlaceholder:    'z.B. quiz-01',
+      exportBtn:            '<i class="fa-solid fa-file-export"></i> Ergebnis exportieren',
+      outputLabel:          'Kodierten String kopieren und abgeben:',
+      copyBtn:              '<i class="fa-regular fa-copy"></i> Kopieren',
+      copyOk:               '<i class="fa-solid fa-check"></i> Kopiert!',
+      validationError:      'Bitte Student-ID und Quiz-ID ausfüllen.',
+      encodingError:        'Fehler beim Kodieren: ',
+      // Download
+      downloadBtn:          '<i class="fa-solid fa-download"></i> Als JSON herunterladen',
+      downloadBtnTitle:     'Aktuellen Code und Testergebnisse aller Aufgaben speichern',
+      downloadHint:         'Speichert Code-Eingaben und Testergebnisse zur eigenen Dokumentation.',
+      downloadFilename:     'aufgaben-',
+      // Python message templates
+      msgForbiddenImport:   "Verbotener Import: '{}'",
+      msgForbiddenFunction: "Verbotene Funktion: '{}'",
+      msgForbiddenMethod:   "Verbotene Methode: '.{}'",
+      msgForbiddenKeyword:  "Verbotenes Schlüsselwort: '{}'",
+      msgAssertionFailed:   'Assertion fehlgeschlagen',
+      msgTestError:         'Fehler: {}',
+      msgSyntaxError:       'Syntaxfehler in Tests: {}',
+    },
+  };
+
+  // ---------------------------------------------------------------------------
+  // Utilities
+  // ---------------------------------------------------------------------------
+
+  function loadScript(src) {
+    return new Promise(function (resolve, reject) {
+      if (document.querySelector('script[src="' + src + '"]')) {
+        resolve(); return;
+      }
+      var s = document.createElement('script');
+      s.src = src;
+      s.onload = resolve;
+      s.onerror = function () { reject(new Error('Failed to load: ' + src)); };
+      document.head.appendChild(s);
+    });
+  }
+
+  async function ensurePyodide() {
+    // coatless-quarto/pyodide is loading — wait for its promise instead of loading a second instance
+    if (typeof qpyodideInstance !== 'undefined') {
+      window.mainPyodide = await qpyodideInstance;
+      return;
+    }
+    // coatless already finished
+    if (typeof mainPyodide !== 'undefined') return;
+    // standalone: load Pyodide ourselves
+    var cdnBase = 'https://cdn.jsdelivr.net/pyodide/v0.27.2/full/';
+    await loadScript(cdnBase + 'pyodide.js');
+    window.mainPyodide = await loadPyodide({ indexURL: cdnBase });
+  }
+
+  async function ensureMonaco() {
+    var cdnBase = 'https://cdn.jsdelivr.net/npm/monaco-editor@0.46.0/min/vs';
+    if (typeof require === 'undefined') {
+      await loadScript(cdnBase + '/loader.js');
+    }
+    require.config({ paths: { vs: cdnBase } });
+    await new Promise(function (resolve) {
+      require(['vs/editor/editor.main'], resolve);
+    });
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  // ---------------------------------------------------------------------------
+  // Submission state + locale
+  // ---------------------------------------------------------------------------
+
+  var submissionConfig = (window.__pyExerciseConfig) || { submission: false, submissionKey: 'py-exercise', lang: 'en' };
+  var L = LOCALES[submissionConfig.lang] || LOCALES['en'];
+
+  // Map of exercise label → { label, passed, total, tests: [bool, ...] }
+  var exerciseResults = {};
+
+  // Map of exercise label → Monaco editor instance
+  var exerciseEditors = {};
+
+  // ---------------------------------------------------------------------------
+  // Python: AST-based violation checker
+  // ---------------------------------------------------------------------------
+  var CHECKER_PY = [
+    'import ast as _ast, json as _json',
+    '',
+    '_fi = list(_exercise_forbidden_imports)',
+    '_fk = list(_exercise_forbidden_keywords)',
+    '',
+    '_KW_NODES = {',
+    '    "for":      _ast.For,',
+    '    "while":    _ast.While,',
+    '    "with":     _ast.With,',
+    '    "lambda":   _ast.Lambda,',
+    '    "class":    _ast.ClassDef,',
+    '    "global":   _ast.Global,',
+    '    "nonlocal": _ast.Nonlocal,',
+    '    "try":      _ast.Try,',
+    '    "raise":    _ast.Raise,',
+    '    "del":      _ast.Delete,',
+    '    "assert":   _ast.Assert,',
+    '    "yield":    _ast.Yield,',
+    '}',
+    '',
+    '_violations = []',
+    '_seen = set()',
+    '',
+    'def _add(msg):',
+    '    if msg not in _seen:',
+    '        _seen.add(msg)',
+    '        _violations.append(msg)',
+    '',
+    'try:',
+    '    _tree = _ast.parse(_exercise_student_code)',
+    '    for _node in _ast.walk(_tree):',
+    '        if isinstance(_node, _ast.Import):',
+    '            for _a in _node.names:',
+    '                _top = _a.name.split(".")[0]',
+    '                if _top in _fi:',
+    '                    _add(_msg_forbidden_import.format(_top))',
+    '        elif isinstance(_node, _ast.ImportFrom):',
+    '            if _node.module:',
+    '                _top = _node.module.split(".")[0]',
+    '                if _top in _fi:',
+    '                    _add(_msg_forbidden_import.format(_top))',
+    '        elif isinstance(_node, _ast.Call):',
+    '            if isinstance(_node.func, _ast.Name):',
+    '                if _node.func.id in _fk:',
+    '                    _add(_msg_forbidden_function.format(_node.func.id))',
+    '            elif isinstance(_node.func, _ast.Attribute):',
+    '                if _node.func.attr in _fk:',
+    '                    _add(_msg_forbidden_method.format(_node.func.attr))',
+    '        else:',
+    '            for _kw, _nt in _KW_NODES.items():',
+    '                if _kw in _fk and isinstance(_node, _nt):',
+    '                    _add(_msg_forbidden_keyword.format(_kw))',
+    'except SyntaxError:',
+    '    pass',
+    '',
+    '_json.dumps(_violations)',
+  ].join('\n');
+
+  // ---------------------------------------------------------------------------
+  // Python: main runner
+  // ---------------------------------------------------------------------------
+  var RUNNER_PY = [
+    'import ast, json, io, sys, traceback',
+    '',
+    '_ns = {}',
+    '_results = {"student_error": None, "stdout": "", "tests": []}',
+    '',
+    '_buf = io.StringIO()',
+    '_old_stdout = sys.stdout',
+    'sys.stdout = _buf',
+    'try:',
+    '    exec(compile(_exercise_student_code, "<student>", "exec"), _ns)',
+    '    _results["stdout"] = _buf.getvalue()',
+    'except Exception:',
+    '    _results["student_error"] = traceback.format_exc()',
+    '    _results["stdout"] = _buf.getvalue()',
+    'finally:',
+    '    sys.stdout = _old_stdout',
+    '',
+    'if _results["student_error"] is None:',
+    '    try:',
+    '        _tree = ast.parse(_exercise_test_code)',
+    '        for _stmt in _tree.body:',
+    '            _single = compile(',
+    '                ast.Module(body=[_stmt], type_ignores=[]),',
+    '                "<test>", "exec"',
+    '            )',
+    '            try:',
+    '                exec(_single, _ns)',
+    '                _results["tests"].append({"passed": True})',
+    '            except AssertionError as e:',
+    '                _results["tests"].append({',
+    '                    "passed": False,',
+    '                    "message": str(e) if str(e) else _msg_assertion_failed',
+    '                })',
+    '            except Exception as e:',
+    '                _results["tests"].append({"passed": False, "message": _msg_test_error.format(e)})',
+    '    except SyntaxError as e:',
+    '        _results["student_error"] = _msg_syntax_error.format(e)',
+    '',
+    'json.dumps(_results)',
+  ].join('\n');
+
+  // ---------------------------------------------------------------------------
+  // Python: submission encoder
+  // ---------------------------------------------------------------------------
+  // Encoding: JSON → UTF-8 bytes → XOR with cycling key → Base64.
+  var ENCODER_PY = [
+    'import json as _json, base64 as _b64',
+    '',
+    '_key  = _submission_key.encode("utf-8")',
+    '_raw  = _json.dumps(_submission_payload, ensure_ascii=False).encode("utf-8")',
+    '_xord = bytes(b ^ _key[i % len(_key)] for i, b in enumerate(_raw))',
+    '_b64.b64encode(_xord).decode("ascii")',
+  ].join('\n');
+
+  // ---------------------------------------------------------------------------
+  // Result rendering
+  // ---------------------------------------------------------------------------
+
+  function renderViolations(area, violations) {
+    var items = violations.map(function (v) {
+      return '<li>' + escapeHtml(v) + '</li>';
+    }).join('');
+    area.innerHTML =
+      '<div class="py-exercise-violations">' +
+      '<strong>' + L.violationsHeader + '</strong>' +
+      '<ul class="py-exercise-violation-list">' + items + '</ul>' +
+      '</div>';
+  }
+
+  function renderResult(area, data, label, showHints) {
+    var html = '';
+
+    if (data.student_error) {
+      area.innerHTML =
+        '<div class="py-exercise-error">' +
+        '<strong>' + L.errorHeader + '</strong>' +
+        '<pre>' + escapeHtml(data.student_error) + '</pre>' +
+        '</div>';
+      return;
+    }
+
+    if (data.stdout && data.stdout.trim()) {
+      html +=
+        '<div class="py-exercise-stdout">' +
+        '<span class="py-exercise-stdout-label">' + L.stdoutLabel + '</span>' +
+        '<pre>' + escapeHtml(data.stdout) + '</pre>' +
+        '</div>';
+    }
+
+    var tests   = data.tests || [];
+    var passed  = tests.filter(function (t) { return t.passed; }).length;
+    var total   = tests.length;
+    var allPass = total > 0 && passed === total;
+
+    // Store result for submission export
+    if (label && total > 0) {
+      exerciseResults[label] = {
+        label:  label,
+        passed: passed,
+        total:  total,
+        tests:  tests.map(function (t) { return t.passed; }),
+      };
+    }
+
+    html += '<div class="py-exercise-summary">';
+    if (allPass) {
+      html += '<div class="py-exercise-all-passed">' + L.allPassed(total) + '</div>';
+    } else {
+      html += '<div class="py-exercise-some-failed">' + L.someFailed(passed, total) + '</div>';
+    }
+
+    if (total > 1) {
+      html += '<ul class="py-exercise-test-list">';
+      tests.forEach(function (t, i) {
+        if (t.passed) {
+          html += '<li class="py-test-pass">✓ Test ' + (i + 1) + '</li>';
+        } else {
+          html +=
+            '<li class="py-test-fail">✗ Test ' + (i + 1) +
+            (showHints !== false && t.message ? ': ' + escapeHtml(t.message) : '') +
+            '</li>';
+        }
+      });
+      html += '</ul>';
+    } else if (!allPass && showHints !== false && tests[0] && tests[0].message) {
+      html += '<div class="py-exercise-hint">' + escapeHtml(tests[0].message) + '</div>';
+    }
+
+    html += '</div>';
+    area.innerHTML = html;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Exercise cell setup
+  // ---------------------------------------------------------------------------
+
+  function setupExercise(exerciseData) {
+    var container = document.getElementById('py-exercise-' + exerciseData.id);
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    var starterCode       = exerciseData.starter           || '';
+    var testsCode         = exerciseData.tests             || '';
+    var forbiddenImports  = exerciseData.forbiddenImports  || [];
+    var forbiddenKeywords = exerciseData.forbiddenKeywords || [];
+    var label             = exerciseData.label;
+    var showHints         = exerciseData.showTestHints !== false;
+
+    // localStorage key scoped to this page + label
+    var storageKey = 'pyex|' + window.location.pathname + '|' + label;
+    var savedCode = null;
+    try { savedCode = localStorage.getItem(storageKey); } catch (e) {}
+
+    // Monaco editor container
+    var editorContainer = document.createElement('div');
+    editorContainer.className = 'py-exercise-editor';
+    container.appendChild(editorContainer);
+
+    // Button bar
+    var buttonBar = document.createElement('div');
+    buttonBar.className = 'py-exercise-buttons';
+
+    var checkBtn = document.createElement('button');
+    checkBtn.className = 'btn btn-primary py-exercise-check';
+    checkBtn.innerHTML = L.btnCheck;
+    checkBtn.type = 'button';
+    checkBtn.title = L.btnCheckTitle;
+
+    var resetBtn = document.createElement('button');
+    resetBtn.className = 'btn btn-light py-exercise-reset';
+    resetBtn.innerHTML = L.btnReset;
+    resetBtn.type = 'button';
+    resetBtn.title = L.btnResetTitle;
+
+    buttonBar.appendChild(checkBtn);
+    buttonBar.appendChild(resetBtn);
+    container.appendChild(buttonBar);
+
+    var resultArea = document.createElement('div');
+    resultArea.className = 'py-exercise-result';
+    container.appendChild(resultArea);
+
+    var editor;
+    require(['vs/editor/editor.main'], function () {
+      editor = monaco.editor.create(editorContainer, {
+        value: savedCode !== null ? savedCode : starterCode,
+        language: 'python',
+        theme: 'vs-light',
+        automaticLayout: true,
+        scrollBeyondLastLine: false,
+        minimap: { enabled: false },
+        fontSize: 14,
+        renderLineHighlight: 'none',
+        hideCursorInOverviewRuler: true,
+      });
+
+      // Store reference so downloadAll() can read the current code later
+      exerciseEditors[label] = editor;
+
+      var updateHeight = function () {
+        var h = Math.max(80, editor.getContentHeight());
+        editorContainer.style.height = h + 'px';
+        editor.layout();
+      };
+      editor.onDidContentSizeChange(updateHeight);
+      updateHeight();
+
+      // Persist code across reloads
+      var saveTimer;
+      editor.onDidChangeModelContent(function () {
+        clearTimeout(saveTimer);
+        saveTimer = setTimeout(function () {
+          try { localStorage.setItem(storageKey, editor.getValue()); } catch (e) {}
+        }, 500);
+      });
+
+      editor.addCommand(monaco.KeyMod.Shift | monaco.KeyCode.Enter, runCheck);
+    });
+
+    async function runCheck() {
+      if (!editor) return;
+
+      resultArea.innerHTML = '<div class="py-exercise-running">' + L.running + '</div>';
+      checkBtn.disabled = true;
+      resetBtn.disabled = true;
+
+      var studentCode = editor.getValue();
+
+      try {
+        mainPyodide.globals.set('_exercise_student_code',  studentCode);
+        mainPyodide.globals.set('_exercise_test_code',     testsCode);
+        mainPyodide.globals.set('_exercise_forbidden_imports',  mainPyodide.toPy(forbiddenImports));
+        mainPyodide.globals.set('_exercise_forbidden_keywords', mainPyodide.toPy(forbiddenKeywords));
+
+        if (forbiddenImports.length > 0 || forbiddenKeywords.length > 0) {
+          var violationsRaw = await mainPyodide.runPythonAsync(CHECKER_PY);
+          var violations = JSON.parse(violationsRaw);
+          if (violations.length > 0) {
+            renderViolations(resultArea, violations);
+            return;
+          }
+        }
+
+        await mainPyodide.loadPackagesFromImports(studentCode);
+        var raw  = await mainPyodide.runPythonAsync(RUNNER_PY);
+        var data = JSON.parse(raw);
+        renderResult(resultArea, data, label, showHints);
+
+      } catch (err) {
+        resultArea.innerHTML =
+          '<div class="py-exercise-error">' +
+          '<strong>' + L.unexpectedError + '</strong>' +
+          '<pre>' + escapeHtml(String(err)) + '</pre>' +
+          '</div>';
+      } finally {
+        checkBtn.disabled = false;
+        resetBtn.disabled = false;
+      }
+    }
+
+    checkBtn.onclick = runCheck;
+    resetBtn.onclick = function () {
+      if (editor) editor.setValue(starterCode);
+      try { localStorage.removeItem(storageKey); } catch (e) {}
+      resultArea.innerHTML = '';
+    };
+  }
+
+  // ---------------------------------------------------------------------------
+  // Submission UI
+  // ---------------------------------------------------------------------------
+
+  function buildSubmissionHeader() {
+    var wrap = document.createElement('div');
+    wrap.className = 'py-submission-header';
+    wrap.innerHTML =
+      '<div class="py-submission-header-inner">' +
+        '<h5 class="py-submission-title">' + L.submissionTitle + '</h5>' +
+        '<div class="py-submission-fields">' +
+          '<div class="py-submission-field">' +
+            '<label for="py-submission-student-id">' + L.studentIdLabel + '</label>' +
+            '<input type="text" id="py-submission-student-id" ' +
+                   'placeholder="' + escapeHtml(L.studentIdPlaceholder) + '" autocomplete="off">' +
+          '</div>' +
+          '<div class="py-submission-field">' +
+            '<label for="py-submission-quiz-id">' + L.quizIdLabel + '</label>' +
+            '<input type="text" id="py-submission-quiz-id" ' +
+                   'placeholder="' + escapeHtml(L.quizIdPlaceholder) + '" autocomplete="off">' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    return wrap;
+  }
+
+  function buildSubmissionFooter() {
+    var wrap = document.createElement('div');
+    wrap.className = 'py-submission-footer';
+
+    var btn = document.createElement('button');
+    btn.className = 'btn btn-success py-submission-export-btn';
+    btn.innerHTML = L.exportBtn;
+    btn.type = 'button';
+    btn.onclick = exportResults;
+
+    var msg = document.createElement('div');
+    msg.className = 'py-submission-msg';
+    msg.id = 'py-submission-msg';
+
+    var outWrap = document.createElement('div');
+    outWrap.className = 'py-submission-output-wrap';
+    outWrap.id = 'py-submission-output-wrap';
+    outWrap.style.display = 'none';
+
+    var outLabelRow = document.createElement('div');
+    outLabelRow.className = 'py-submission-output-labelrow';
+
+    var outLabel = document.createElement('span');
+    outLabel.className = 'py-submission-output-label';
+    outLabel.textContent = L.outputLabel;
+
+    var copyBtn = document.createElement('button');
+    copyBtn.className = 'btn btn-light btn-sm py-submission-copy-btn';
+    copyBtn.id = 'py-submission-copy-btn';
+    copyBtn.type = 'button';
+    copyBtn.innerHTML = L.copyBtn;
+    copyBtn.onclick = function () {
+      var text = (document.getElementById('py-submission-output') || {}).value || '';
+      if (!text) return;
+      navigator.clipboard.writeText(text).then(function () {
+        copyBtn.innerHTML = L.copyOk;
+        copyBtn.classList.add('py-submission-copy-ok');
+        setTimeout(function () {
+          copyBtn.innerHTML = L.copyBtn;
+          copyBtn.classList.remove('py-submission-copy-ok');
+        }, 2000);
+      });
+    };
+
+    outLabelRow.appendChild(outLabel);
+    outLabelRow.appendChild(copyBtn);
+
+    var textarea = document.createElement('textarea');
+    textarea.className = 'py-submission-output';
+    textarea.id = 'py-submission-output';
+    textarea.readOnly = true;
+    textarea.rows = 4;
+    textarea.onclick = function () { this.select(); };
+
+    outWrap.appendChild(outLabelRow);
+    outWrap.appendChild(textarea);
+
+    wrap.appendChild(btn);
+    wrap.appendChild(msg);
+    wrap.appendChild(outWrap);
+    return wrap;
+  }
+
+  async function exportResults() {
+    var studentId = (document.getElementById('py-submission-student-id') || {}).value;
+    var quizId    = (document.getElementById('py-submission-quiz-id')    || {}).value;
+
+    studentId = (studentId || '').trim();
+    quizId    = (quizId    || '').trim();
+
+    var msgEl     = document.getElementById('py-submission-msg');
+    var outWrap   = document.getElementById('py-submission-output-wrap');
+    var outArea   = document.getElementById('py-submission-output');
+
+    if (!studentId || !quizId) {
+      if (msgEl) {
+        msgEl.innerHTML =
+          '<div class="py-submission-error">' + escapeHtml(L.validationError) + '</div>';
+      }
+      if (outWrap) outWrap.style.display = 'none';
+      return;
+    }
+    if (msgEl) msgEl.innerHTML = '';
+
+    // Collect results for every registered exercise (unattempted → 0/total)
+    var allResults = (window.__pyExercises || []).map(function (ex) {
+      return exerciseResults[ex.label] || {
+        label:  ex.label,
+        passed: 0,
+        total:  0,        // 0 = not attempted
+        tests:  [],
+      };
+    });
+
+    var payload = {
+      v:       1,
+      sid:     studentId,
+      qid:     quizId,
+      ts:      new Date().toISOString(),
+      results: allResults,
+    };
+
+    try {
+      mainPyodide.globals.set('_submission_payload', mainPyodide.toPy(payload));
+      mainPyodide.globals.set('_submission_key',     submissionConfig.submissionKey || 'py-exercise');
+
+      var encoded = await mainPyodide.runPythonAsync(ENCODER_PY);
+
+      if (outArea)  outArea.value = encoded;
+      if (outWrap)  outWrap.style.display = '';
+      if (msgEl)    msgEl.innerHTML = '';
+
+    } catch (err) {
+      if (msgEl) {
+        msgEl.innerHTML =
+          '<div class="py-submission-error">' +
+          escapeHtml(L.encodingError) + escapeHtml(String(err)) +
+          '</div>';
+      }
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Download (personal documentation)
+  // ---------------------------------------------------------------------------
+
+  function downloadAll() {
+    var exercises = (window.__pyExercises || []).map(function (ex) {
+      var editor = exerciseEditors[ex.label];
+      var result = exerciseResults[ex.label] || null;
+      return {
+        label:   ex.label,
+        caption: ex.caption || null,
+        code:    editor ? editor.getValue() : ex.starter,
+        result:  result,
+      };
+    });
+
+    var data = {
+      exported_at: new Date().toISOString(),
+      exercises:   exercises,
+    };
+
+    var json = JSON.stringify(data, null, 2);
+    var blob = new Blob([json], { type: 'application/json' });
+    var url  = URL.createObjectURL(blob);
+    var a    = document.createElement('a');
+    a.href     = url;
+    a.download = L.downloadFilename + new Date().toISOString().slice(0, 10) + '.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function buildDownloadSection() {
+    var wrap = document.createElement('div');
+    wrap.className = 'py-download-section';
+
+    var btn = document.createElement('button');
+    btn.className = 'btn btn-outline-secondary py-download-btn';
+    btn.innerHTML = L.downloadBtn;
+    btn.type = 'button';
+    btn.title = L.downloadBtnTitle;
+    btn.onclick = downloadAll;
+
+    var hint = document.createElement('span');
+    hint.className = 'py-download-hint';
+    hint.textContent = L.downloadHint;
+
+    wrap.appendChild(btn);
+    wrap.appendChild(hint);
+    return wrap;
+  }
+
+  function initDownload() {
+    var cells = document.querySelectorAll('.py-exercise-cell');
+    if (cells.length === 0) return;
+
+    // If a submission footer exists, append the download section to it (with separator).
+    // Otherwise create a standalone footer after the last exercise cell.
+    var subFooter = document.querySelector('.py-submission-footer');
+    if (subFooter) {
+      var sep = document.createElement('hr');
+      sep.className = 'py-footer-sep';
+      subFooter.appendChild(sep);
+      subFooter.appendChild(buildDownloadSection());
+    } else {
+      var footer = document.createElement('div');
+      footer.className = 'py-download-footer';
+      footer.appendChild(buildDownloadSection());
+      var lastCell = cells[cells.length - 1];
+      lastCell.parentNode.insertBefore(footer, lastCell.nextSibling);
+    }
+  }
+
+  function initSubmission() {
+    if (!submissionConfig.submission) return;
+
+    var cells = document.querySelectorAll('.py-exercise-cell');
+    if (cells.length === 0) return;
+
+    // Header before the first exercise cell
+    var header = buildSubmissionHeader();
+    cells[0].parentNode.insertBefore(header, cells[0]);
+
+    // Footer after the last exercise cell
+    var lastCell = cells[cells.length - 1];
+    var footer = buildSubmissionFooter();
+    lastCell.parentNode.insertBefore(footer, lastCell.nextSibling);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Init
+  // ---------------------------------------------------------------------------
+  document.addEventListener('DOMContentLoaded', async function () {
+    await ensurePyodide();
+    await ensureMonaco();
+
+    mainPyodide.globals.set('_msg_forbidden_import',   L.msgForbiddenImport);
+    mainPyodide.globals.set('_msg_forbidden_function', L.msgForbiddenFunction);
+    mainPyodide.globals.set('_msg_forbidden_method',   L.msgForbiddenMethod);
+    mainPyodide.globals.set('_msg_forbidden_keyword',  L.msgForbiddenKeyword);
+    mainPyodide.globals.set('_msg_assertion_failed',   L.msgAssertionFailed);
+    mainPyodide.globals.set('_msg_test_error',         L.msgTestError);
+    mainPyodide.globals.set('_msg_syntax_error',       L.msgSyntaxError);
+
+    var exercises = window.__pyExercises || [];
+    exercises.forEach(setupExercise);
+    initSubmission();
+    initDownload();
+  });
+
+})();
+
+</script>
+
+
+
+
+</body></html>

@@ -1,0 +1,18 @@
+---
+title: "Py-Exercise ohne Pyodide Block"
+filters:
+  - coatless-quarto/pyodide
+  - Erasmus-CTM/py-exercise
+---
+
+Hier wird Py-Exercise verwendet, ohne dass eine Pyodide-Block auf der gleichen Seite exisistieren muss. 
+
+```{py-exercise}
+#| label: aufgabe-1
+#| caption: Aufgabe 1 – Addition
+def add(a, b):
+    pass
+## TESTS ##
+assert add(1, 2) == 3
+assert add(0, 0) == 0
+```

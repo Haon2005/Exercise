@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Übungsaufgaben – Extension</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style type="text/css">
+/* ---- Exercise container ---- */
+.math-exercise-cell {
+  position: relative;
+  margin: 1.5em 0;
+  padding: 1.25em 1.5em;
+  border: 1px solid #dee2e6;
+  border-radius: .5em;
+  background: #fafafa;
+}
+
+/* Pool reload button – top-right corner */
+.math-pool-reload {
+  position: absolute;
+  top: .55em;
+  right: .6em;
+  background: none;
+  border: 1px solid #ced4da;
+  border-radius: .3em;
+  padding: .1em .4em;
+  font-size: 1.05em;
+  line-height: 1;
+  cursor: pointer;
+  color: #6c757d;
+  transition: background .12s, color .12s;
+}
+.math-pool-reload:hover { background: #e9ecef; color: #212529; }
+
+.math-exercise-caption {
+  font-weight: 600;
+  font-size: 1.05em;
+  margin-bottom: .75em;
+  color: #1a1a2e;
+  border-bottom: 2px solid #dee2e6;
+  padding-bottom: .35em;
+}
+
+.math-exercise-question {
+  margin-bottom: 1em;
+  line-height: 1.8;
+}
+
+/* ---- Input fields ---- */
+.math-input {
+  font-family: 'Fira Mono', 'Consolas', 'Courier New', monospace;
+  font-size: .92em;
+  padding: .3em .55em;
+  border: 1px solid #adb5bd;
+  border-radius: .3em;
+  background: #fff;
+  color: #212529;
+  vertical-align: middle;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.math-input:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, .18);
+}
+
+.math-input-small  { width: 10em; }
+.math-input-medium { width: 20em; }
+
+.math-input-large {
+  display: block;
+  width: 100%;
+  margin: .35em 0;
+  resize: vertical;
+  min-height: 4em;
+}
+
+/* State feedback on the input itself */
+.math-input-ok {
+  border-color: #198754 !important;
+  background:   #f0fff4 !important;
+}
+.math-input-wrong {
+  border-color: #dc3545 !important;
+  background:   #fff5f5 !important;
+}
+.math-input-err {
+  border-color: #fd7e14 !important;
+  background:   #fffbf0 !important;
+}
+
+/* ---- Buttons ---- */
+.math-exercise-controls {
+  display: flex;
+  gap: .5em;
+  margin-bottom: .75em;
+  flex-wrap: wrap;
+}
+
+.math-legend-btn.active {
+  background: #e2e3e5;
+  border-color: #adb5bd;
+}
+
+/* ---- Legend panel ---- */
+.math-legend-panel {
+  margin: 0 0 .75em;
+  padding: .75em 1em;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: .4em;
+  font-size: .88em;
+}
+
+.math-legend-ops {
+  margin: 0 0 .6em;
+  color: #495057;
+}
+
+.math-legend-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.math-legend-table th,
+.math-legend-table td {
+  padding: .28em .6em;
+  border-bottom: 1px solid #e9ecef;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.math-legend-table th {
+  font-weight: 600;
+  background: #e9ecef;
+  font-size: .9em;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+}
+
+.math-legend-math {
+  min-width: 6em;
+}
+
+.math-legend-code {
+  background: #dde8fd;
+  padding: .1em .4em;
+  border-radius: .2em;
+  font-family: 'Fira Mono', 'Consolas', monospace;
+  font-size: .95em;
+  white-space: nowrap;
+}
+
+.math-legend-desc {
+  color: #6c757d;
+}
+
+/* ---- Feedback messages ---- */
+.math-feedback-area {
+  margin-top: .25em;
+}
+
+.math-fb-ok,
+.math-fb-wrong,
+.math-fb-empty,
+.math-fb-err,
+.math-fb-checking {
+  padding: .4em .8em;
+  border-radius: .3em;
+  margin-bottom: .3em;
+  font-size: .92em;
+  line-height: 1.5;
+}
+
+.math-fb-ok       { background: #d1e7dd; color: #0a3622; }
+.math-fb-wrong    { background: #f8d7da; color: #58151c; }
+.math-fb-empty    { background: #fff3cd; color: #664d03; }
+.math-fb-err      { background: #fff3cd; color: #664d03; }
+.math-fb-checking { background: #e2e3e5; color: #41464b; font-style: italic; }
+
+/* ---- LLM feedback block ---- */
+.math-fb-llm {
+  background: #e8f4fd;
+  border: 1px solid #b8d9f8;
+  border-radius: .3em;
+  padding: .5em .85em;
+  font-size: .92em;
+}
+.math-fb-llm-header {
+  font-weight: 600;
+  color: #004085;
+  margin-bottom: .3em;
+}
+.math-fb-llm-cnt {
+  font-weight: 400;
+  font-size: .9em;
+  color: #6c8ebf;
+}
+.math-fb-llm-body {
+  line-height: 1.65;
+  color: #1a1a2e;
+}
+
+/* ---- Config modal ---- */
+.math-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.math-modal {
+  background: #fff;
+  border-radius: .5em;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, .25);
+  width: min(440px, 92vw);
+  overflow: hidden;
+}
+
+.math-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .7em 1em;
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.math-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.4em;
+  line-height: 1;
+  cursor: pointer;
+  color: #6c757d;
+  padding: 0 .25em;
+}
+.math-modal-close:hover { color: #212529; }
+
+.math-modal-body {
+  padding: 1em 1.25em .75em;
+}
+
+.math-modal-hint {
+  font-size: .85em;
+  color: #6c757d;
+  margin: 0 0 .8em;
+}
+
+.math-modal-label {
+  display: block;
+  margin-bottom: .55em;
+  font-weight: 500;
+  font-size: .9em;
+}
+
+.math-modal-input {
+  display: block;
+  width: 100%;
+  margin-top: .2em;
+  padding: .38em .6em;
+  border: 1px solid #ced4da;
+  border-radius: .3em;
+  font-size: .9em;
+  font-weight: 400;
+}
+.math-modal-input:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, .15);
+}
+
+.math-modal-footer {
+  display: flex;
+  gap: .5em;
+  justify-content: flex-end;
+  padding: .7em 1.25em;
+  border-top: 1px solid #dee2e6;
+  background: #f8f9fa;
+}
+
+</style>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Extension</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">Beispiele</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./exercises.html" aria-current="page"> 
+<span class="menu-text">Übungsaufgaben</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#geometrie" id="toc-geometrie" class="nav-link active" data-scroll-target="#geometrie">Geometrie</a></li>
+  <li><a href="#algebra" id="toc-algebra" class="nav-link" data-scroll-target="#algebra">Algebra</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
+  <li><a href="#trigonometrie" id="toc-trigonometrie" class="nav-link" data-scroll-target="#trigonometrie">Trigonometrie</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Übungsaufgaben</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Diese Seite testet, ob der API-Schlüssel aus der Konfiguration auf der <a href="./about.html">Beispielseite</a> hier weiterhin gilt – ohne erneute Eingabe.</p>
+<hr>
+<section id="geometrie" class="level2">
+<h2 class="anchored" data-anchor-id="geometrie">Geometrie</h2>
+<div class="math-exercise-cell" id="math-exercise-1" data-label="pythagoras" data-mode="equivalent" data-reject="" data-vars="" data-fields="[&quot;math-exercise-1-f1&quot;]">
+<div class="math-exercise-caption">Satz des Pythagoras</div>
+
+<div class="math-exercise-question">Ein rechtwinkliges Dreieck hat die Katheten a = 3 und b = 4.<br>
+Wie lang ist die Hypotenuse c?<br>
+<br>
+c = <input type="text" id="math-exercise-1-f1" data-answer="5" data-vars="" autocomplete="off" autocorrect="off" spellcheck="false" class="math-input math-input-small"></div>
+<div class="math-exercise-controls">
+  <button type="button" class="btn btn-primary math-check-btn">✓&nbsp;Überprüfen</button>
+  <button type="button" class="btn btn-light math-legend-btn">ⓘ&nbsp;Eingabe-Hilfe</button>
+  <div class="btn-group">
+    <button type="button" class="btn btn-light math-feedback-btn">💬&nbsp;Feedback</button>
+    <button type="button" class="btn btn-light math-reconfig-btn" title="KI-Konfiguration ändern">⚙</button>
+  </div>
+</div>
+<div class="math-legend-panel" style="display:none;"></div>
+<div class="math-feedback-area"></div>
+</div>
+<div class="math-exercise-cell" id="math-exercise-2" data-label="zylinder-volumen" data-mode="equivalent" data-reject="" data-vars="r, h" data-fields="[&quot;math-exercise-2-f1&quot;]">
+<div class="math-exercise-caption">Volumen eines Zylinders</div>
+
+<div class="math-exercise-question">Ein Zylinder hat Radius r und Höhe h.<br>
+Gib die Formel für das Volumen V an.<br>
+<br>
+V = <input type="text" id="math-exercise-2-f1" data-answer="pi * r**2 * h" data-vars="r, h" autocomplete="off" autocorrect="off" spellcheck="false" class="math-input math-input-small"></div>
+<div class="math-exercise-controls">
+  <button type="button" class="btn btn-primary math-check-btn">✓&nbsp;Überprüfen</button>
+  <button type="button" class="btn btn-light math-legend-btn">ⓘ&nbsp;Eingabe-Hilfe</button>
+  <div class="btn-group">
+    <button type="button" class="btn btn-light math-feedback-btn">💬&nbsp;Feedback</button>
+    <button type="button" class="btn btn-light math-reconfig-btn" title="KI-Konfiguration ändern">⚙</button>
+  </div>
+</div>
+<div class="math-legend-panel" style="display:none;"></div>
+<div class="math-feedback-area"></div>
+</div>
+<hr>
+</section>
+<section id="algebra" class="level2">
+<h2 class="anchored" data-anchor-id="algebra">Algebra</h2>
+<div class="math-exercise-cell" id="math-exercise-3" data-label="quadratische-formel" data-mode="equivalent" data-reject="" data-vars="x" data-pool="[&quot;Bestimme eine Nullstelle von f(x) = x² − 4.\n\nx = _[2]&quot;,&quot;Bestimme eine Nullstelle von f(x) = x² − 9.\n\nx = _[3]&quot;,&quot;Bestimme eine Nullstelle von f(x) = x² − 25.\n\nx = _[5]&quot;]" data-fields="[]">
+<div class="math-exercise-caption">Nullstellen – Zufallsaufgabe</div>
+
+<button type="button" class="math-pool-reload" title="Neue Zufallsaufgabe laden">↻</button>
+<div class="math-exercise-question"></div>
+<div class="math-exercise-controls">
+  <button type="button" class="btn btn-primary math-check-btn">✓&nbsp;Überprüfen</button>
+  <button type="button" class="btn btn-light math-legend-btn">ⓘ&nbsp;Eingabe-Hilfe</button>
+  <div class="btn-group">
+    <button type="button" class="btn btn-light math-feedback-btn">💬&nbsp;Feedback</button>
+    <button type="button" class="btn btn-light math-reconfig-btn" title="KI-Konfiguration ändern">⚙</button>
+  </div>
+</div>
+<div class="math-legend-panel" style="display:none;"></div>
+<div class="math-feedback-area"></div>
+</div>
+<div class="math-exercise-cell" id="math-exercise-4" data-label="binomische-formel" data-mode="equivalent" data-reject="(x-3)**2" data-vars="x" data-fields="[&quot;math-exercise-4-f1&quot;]">
+<div class="math-exercise-caption">Zweite binomische Formel vereinfachen</div>
+
+<div class="math-exercise-question">Multipliziere aus: (x − 3)²<br>
+<br>
+<input type="text" id="math-exercise-4-f1" data-answer="x**2 - 6*x + 9" data-vars="x" autocomplete="off" autocorrect="off" spellcheck="false" class="math-input math-input-small"></div>
+<div class="math-exercise-controls">
+  <button type="button" class="btn btn-primary math-check-btn">✓&nbsp;Überprüfen</button>
+  <button type="button" class="btn btn-light math-legend-btn">ⓘ&nbsp;Eingabe-Hilfe</button>
+  <div class="btn-group">
+    <button type="button" class="btn btn-light math-feedback-btn">💬&nbsp;Feedback</button>
+    <button type="button" class="btn btn-light math-reconfig-btn" title="KI-Konfiguration ändern">⚙</button>
+  </div>
+</div>
+<div class="math-legend-panel" style="display:none;"></div>
+<div class="math-feedback-area"></div>
+</div>
+<hr>
+</section>
+<section id="analysis" class="level2">
+<h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
+<div class="math-exercise-cell" id="math-exercise-5" data-label="ableitung-pool" data-mode="equivalent" data-reject="" data-vars="x" data-pool="[&quot;Leite ab: f(x) = 3x²\n\nf'(x) = _[6*x]&quot;,&quot;Leite ab: f(x) = 5x³\n\nf'(x) = _[15*x**2]&quot;,&quot;Leite ab: f(x) = x⁴ + 2x\n\nf'(x) = _[4*x**3 + 2]&quot;]" data-fields="[]">
+<div class="math-exercise-caption">Ableitung bestimmen – Zufallsaufgabe</div>
+
+<button type="button" class="math-pool-reload" title="Neue Zufallsaufgabe laden">↻</button>
+<div class="math-exercise-question"></div>
+<div class="math-exercise-controls">
+  <button type="button" class="btn btn-primary math-check-btn">✓&nbsp;Überprüfen</button>
+  <button type="button" class="btn btn-light math-legend-btn">ⓘ&nbsp;Eingabe-Hilfe</button>
+  <div class="btn-group">
+    <button type="button" class="btn btn-light math-feedback-btn">💬&nbsp;Feedback</button>
+    <button type="button" class="btn btn-light math-reconfig-btn" title="KI-Konfiguration ändern">⚙</button>
+  </div>
+</div>
+<div class="math-legend-panel" style="display:none;"></div>
+<div class="math-feedback-area"></div>
+</div>
+<div class="math-exercise-cell" id="math-exercise-6" data-label="grenzwert" data-mode="equivalent" data-reject="" data-vars="" data-fields="[&quot;math-exercise-6-f1&quot;]">
+<div class="math-exercise-caption">Grenzwert</div>
+
+<div class="math-exercise-question">Welchen Grenzwert hat 1/x für x → ∞?<br>
+<br>
+lim = <input type="text" id="math-exercise-6-f1" data-answer="0" data-vars="" autocomplete="off" autocorrect="off" spellcheck="false" class="math-input math-input-small"></div>
+<div class="math-exercise-controls">
+  <button type="button" class="btn btn-primary math-check-btn">✓&nbsp;Überprüfen</button>
+  <button type="button" class="btn btn-light math-legend-btn">ⓘ&nbsp;Eingabe-Hilfe</button>
+  <div class="btn-group">
+    <button type="button" class="btn btn-light math-feedback-btn">💬&nbsp;Feedback</button>
+    <button type="button" class="btn btn-light math-reconfig-btn" title="KI-Konfiguration ändern">⚙</button>
+  </div>
+</div>
+<div class="math-legend-panel" style="display:none;"></div>
+<div class="math-feedback-area"></div>
+</div>
+<hr>
+</section>
+<section id="trigonometrie" class="level2">
+<h2 class="anchored" data-anchor-id="trigonometrie">Trigonometrie</h2>
+<div class="math-exercise-cell" id="math-exercise-7" data-label="trig-werte" data-mode="equivalent" data-reject="" data-vars="" data-pool="[&quot;Berechne: sin(π/2)\n\n_[1]&quot;,&quot;Berechne: cos(0)\n\n_[1]&quot;,&quot;Berechne: tan(π/4)\n\n_[1]&quot;]" data-fields="[]">
+<div class="math-exercise-caption">Trigonometrische Werte – Zufallsaufgabe</div>
+
+<button type="button" class="math-pool-reload" title="Neue Zufallsaufgabe laden">↻</button>
+<div class="math-exercise-question"></div>
+<div class="math-exercise-controls">
+  <button type="button" class="btn btn-primary math-check-btn">✓&nbsp;Überprüfen</button>
+  <button type="button" class="btn btn-light math-legend-btn">ⓘ&nbsp;Eingabe-Hilfe</button>
+  <div class="btn-group">
+    <button type="button" class="btn btn-light math-feedback-btn">💬&nbsp;Feedback</button>
+    <button type="button" class="btn btn-light math-reconfig-btn" title="KI-Konfiguration ändern">⚙</button>
+  </div>
+</div>
+<div class="math-legend-panel" style="display:none;"></div>
+<div class="math-feedback-area"></div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<script type="text/javascript">
+(function () {
+  'use strict';
+
+  // ---------------------------------------------------------------------------
+  // Utilities
+  // ---------------------------------------------------------------------------
+
+  function escHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function simpleMarkdown(text) {
+    return escHtml(text)
+      .replace(/\*\*([\s\S]*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*([\s\S]*?)\*/g,     '<em>$1</em>')
+      .replace(/`([^`]*)`/g,          '<code>$1</code>')
+      .replace(/\n/g, '<br>');
+  }
+
+  function loadScript(src) {
+    return new Promise(function (resolve, reject) {
+      if (document.querySelector('script[src="' + src + '"]')) { resolve(); return; }
+      var s = document.createElement('script');
+      s.src = src; s.onload = resolve;
+      s.onerror = function () { reject(new Error('Failed to load: ' + src)); };
+      document.head.appendChild(s);
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // Pyodide bootstrap  (reuse coatless instance if present)
+  // ---------------------------------------------------------------------------
+
+  async function ensurePyodide() {
+    if (typeof qpyodideInstance !== 'undefined') {
+      window.mainPyodide = await qpyodideInstance; return;
+    }
+    if (typeof mainPyodide !== 'undefined') return;
+    var cdn = 'https://cdn.jsdelivr.net/pyodide/v0.27.2/full/';
+    await loadScript(cdn + 'pyodide.js');
+    window.mainPyodide = await loadPyodide({ indexURL: cdn });
+  }
+
+  // ---------------------------------------------------------------------------
+  // KaTeX  (legend rendering – loaded independently of page math)
+  // ---------------------------------------------------------------------------
+
+  var katexReady = false;
+  var KATEX = 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/';
+
+  async function ensureKatex() {
+    if (katexReady) return;
+    var link = document.createElement('link');
+    link.rel = 'stylesheet'; link.href = KATEX + 'katex.min.css';
+    document.head.appendChild(link);
+    await loadScript(KATEX + 'katex.min.js');
+    katexReady = true;
+  }
+
+  // ---------------------------------------------------------------------------
+  // SymPy  (lazy – first Check click)
+  // ---------------------------------------------------------------------------
+
+  var sympyReady = false;
+
+  async function ensureSympy() {
+    if (sympyReady) return;
+    await mainPyodide.loadPackage('sympy');
+    await mainPyodide.runPythonAsync([
+      'from sympy import *',
+      'from sympy.parsing.sympy_parser import (',
+      '    parse_expr, standard_transformations,',
+      '    implicit_multiplication_application, convert_xor',
+      ')',
+      '_math_tf = standard_transformations + (',
+      '    implicit_multiplication_application, convert_xor,',
+      ')',
+    ].join('\n'));
+    sympyReady = true;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Legend
+  // ---------------------------------------------------------------------------
+
+  var LEGEND = [
+    ['x^2',            'x^2 \\text{ oder } x{**}2', 'Potenz'],
+    ['\\sqrt{x}',      'sqrt(x)',                    'Quadratwurzel'],
+    ['\\sqrt[n]{x}',   'root(x, n)',                 'n-te Wurzel'],
+    ['\\dfrac{a}{b}',  'a/b',                        'Bruch'],
+    ['\\pi',           'pi',                         'Kreiszahl π'],
+    ['e',              'E',                          'Eulersche Zahl e'],
+    ['\\sin(x)',        'sin(x)',                    'Sinus'],
+    ['\\cos(x)',        'cos(x)',                    'Kosinus'],
+    ['\\tan(x)',        'tan(x)',                    'Tangens'],
+    ['\\ln(x)',         'ln(x)',                     'Nat. Logarithmus'],
+    ['\\log_a(x)',      'log(x, a)',                 'Log. zur Basis a'],
+    ['|x|',             'Abs(x)',                    'Betrag'],
+    ['\\infty',         'inf &nbsp;oder&nbsp; oo',   'Unendlich'],
+    ['\\int f\\,dx',    'integrate(f, x)',           'Integral'],
+    ['\\dfrac{d}{dx}f', 'diff(f, x)',                'Ableitung'],
+  ];
+
+  async function buildLegend(container) {
+    await ensureKatex();
+    var rows = LEGEND.map(function (item) {
+      var math;
+      try { math = katex.renderToString(item[0], { throwOnError: false }); }
+      catch (e) { math = escHtml(item[0]); }
+      return '<tr>'
+        + '<td class="math-legend-math">'  + math + '</td>'
+        + '<td><code class="math-legend-code">' + item[1] + '</code></td>'
+        + '<td class="math-legend-desc">'  + item[2] + '</td>'
+        + '</tr>';
+    }).join('');
+    container.innerHTML =
+      '<div class="math-legend-inner">'
+      + '<p class="math-legend-ops">'
+      + 'Grundrechenzeichen:&nbsp;<code>+</code>&nbsp;<code>-</code>&nbsp;<code>*</code>&nbsp;<code>/</code>'
+      + '&nbsp;&nbsp;|&nbsp;&nbsp;Klammern:&nbsp;<code>(</code>&nbsp;<code>)</code>'
+      + '&nbsp;&nbsp;|&nbsp;&nbsp;Potenz:&nbsp;<code>^</code>&nbsp;oder&nbsp;<code>**</code>'
+      + '</p>'
+      + '<table class="math-legend-table"><thead><tr>'
+      + '<th>Ausdruck</th><th>Eingabe</th><th>Bedeutung</th>'
+      + '</tr></thead><tbody>' + rows + '</tbody></table>'
+      + '</div>';
+  }
+
+  // ---------------------------------------------------------------------------
+  // Error → human-readable German
+  // ---------------------------------------------------------------------------
+
+  function friendlyError(raw) {
+    var msg = String(raw || '');
+    if (/SyntaxError/i.test(msg))
+      return 'Syntax-Fehler: Prüfe ob alle Klammern geschlossen sind und kein Operatorzeichen fehlt.';
+    var nm = msg.match(/name ['"]([\w]+)['"] is not defined/);
+    if (nm)
+      return 'Unbekannte Bezeichnung &bdquo;' + nm[1] + '&ldquo; – nutze die Eingabe-Hilfe (z.&nbsp;B. <code>pi</code> statt <code>π</code>).';
+    if (/NameError/i.test(msg))
+      return 'Unbekannte Bezeichnung – nutze die Eingabe-Hilfe für korrekte Schreibweisen.';
+    if (/ZeroDivisionError/i.test(msg) || /\bzoo\b/.test(msg))
+      return 'Division durch Null: der Ausdruck ist an dieser Stelle nicht definiert.';
+    if (/TypeError/i.test(msg))
+      return 'Typ-Fehler: Stelle sicher, dass Zahlen und Variablen korrekt kombiniert sind.';
+    return 'Die Eingabe konnte nicht verarbeitet werden – nutze die Eingabe-Hilfe für korrekte Schreibweisen.';
+  }
+
+  // ---------------------------------------------------------------------------
+  // Task-text renderer  (used by pool mode: parses _[answer] markers in JS)
+  // ---------------------------------------------------------------------------
+
+  function renderTaskText(text, exerciseId, vars) {
+    var count = 0, fieldIds = [];
+    var html = text.replace(/(_+)\[([^\]]*)\]/g, function (_, underscores, answer) {
+      count++;
+      var fid  = exerciseId + '-f' + count;
+      fieldIds.push(fid);
+      var n    = underscores.length;
+      var base = ' id="' + fid + '"'
+               + ' data-answer="' + escHtml(answer) + '"'
+               + ' data-vars="'   + escHtml(vars)   + '"'
+               + ' autocomplete="off" autocorrect="off" spellcheck="false"';
+      if (n >= 3) return '<textarea' + base + ' class="math-input math-input-large" rows="2"></textarea>';
+      if (n >= 2) return '<input type="text"' + base + ' class="math-input math-input-medium">';
+      return '<input type="text"' + base + ' class="math-input math-input-small">';
+    });
+    return { html: html.replace(/\n/g, '<br>\n'), fieldIds: fieldIds };
+  }
+
+  // ---------------------------------------------------------------------------
+  // SymPy checker
+  // ---------------------------------------------------------------------------
+
+  var CHECK_PY = [
+    'import json as _mj',
+    '_local = {}',
+    'if _math_vars.strip():',
+    '    for _v in _math_vars.replace(",", " ").split():',
+    '        _v = _v.strip()',
+    '        if _v: _local[_v] = symbols(_v)',
+    '_local.setdefault("inf", oo)',
+    'try:',
+    '    _ms = parse_expr(_math_student, local_dict=_local, transformations=_math_tf)',
+    '    _mc = parse_expr(_math_correct,  local_dict=_local, transformations=_math_tf)',
+    '    _d  = simplify(_ms - _mc)',
+    '    _eq = (_d == 0) or (_d.is_number and abs(float(_d.evalf())) < 1e-10)',
+    '    if not _eq:',
+    '        _mres = {"status": "wrong"}',
+    '    elif _math_mode == "exact":',
+    '        _mres = {"status": "correct"} if str(_ms) == str(_mc) else {"status": "not_exact"}',
+    '    elif _math_reject.strip():',
+    '        _mr  = parse_expr(_math_reject, local_dict=_local, transformations=_math_tf)',
+    '        _rd  = simplify(_ms - _mr)',
+    '        _rej = (_rd == 0) or (_rd.is_number and abs(float(_rd.evalf())) < 1e-10)',
+    '        _mres = {"status": "rejected"} if _rej else {"status": "correct"}',
+    '    else:',
+    '        _mres = {"status": "correct"}',
+    'except Exception as _me:',
+    '    _mres = {"status": "error", "message": str(_me)}',
+    '_mj.dumps(_mres)',
+  ].join('\n');
+
+  async function checkField(el, mode, reject) {
+    var val = el.value.trim();
+    if (!val) return { status: 'empty' };
+    mainPyodide.globals.set('_math_student', val);
+    mainPyodide.globals.set('_math_correct', el.dataset.answer || '');
+    mainPyodide.globals.set('_math_vars',    el.dataset.vars   || '');
+    mainPyodide.globals.set('_math_mode',    mode   || 'equivalent');
+    mainPyodide.globals.set('_math_reject',  reject || '');
+    return JSON.parse(await mainPyodide.runPythonAsync(CHECK_PY));
+  }
+
+  // ---------------------------------------------------------------------------
+  // LLM / AI-Feedback  (OpenAI-compatible API, config stored in localStorage)
+  // ---------------------------------------------------------------------------
+
+  var LLM_CFG_KEY  = 'math-exercise-llm-config';
+  var LLM_CNT_NS   = 'math-fb-cnt';
+
+  function loadCfg()        { try { return JSON.parse(localStorage.getItem(LLM_CFG_KEY) || 'null'); } catch(e) { return null; } }
+  function saveCfg(cfg)     { try { localStorage.setItem(LLM_CFG_KEY, JSON.stringify(cfg)); } catch(e) {} }
+  function getCnt(lbl)      { try { return parseInt(localStorage.getItem(LLM_CNT_NS+'|'+location.pathname+'|'+lbl)||'0'); } catch(e) { return 0; } }
+  function incCnt(lbl)      { var n = getCnt(lbl)+1; try { localStorage.setItem(LLM_CNT_NS+'|'+location.pathname+'|'+lbl, String(n)); } catch(e) {} return n; }
+
+  // Config modal (singleton)
+  var _modal = null;
+  function getModal() {
+    if (_modal) return _modal;
+    var el = document.createElement('div');
+    el.className = 'math-modal-backdrop';
+    el.style.display = 'none';
+    el.innerHTML =
+      '<div class="math-modal" role="dialog">'
+      + '<div class="math-modal-header"><strong>KI-Feedback einrichten</strong>'
+      +   '<button class="math-modal-close" type="button" aria-label="Schließen">&times;</button></div>'
+      + '<div class="math-modal-body">'
+      +   '<p class="math-modal-hint">Die Zugangsdaten werden nur lokal in Ihrem Browser gespeichert.</p>'
+      +   '<label class="math-modal-label">Base URL<input id="math-cfg-url"   class="math-modal-input" type="url"      placeholder="https://api.cerebras.ai/v1"></label>'
+      +   '<label class="math-modal-label">API Key <input id="math-cfg-key"   class="math-modal-input" type="password" placeholder="csk-..."></label>'
+      +   '<label class="math-modal-label">Modell  <input id="math-cfg-model" class="math-modal-input" type="text"     placeholder="llama-3.3-70b"></label>'
+      + '</div>'
+      + '<div class="math-modal-footer">'
+      +   '<button class="btn btn-primary  math-modal-save"   type="button">Speichern &amp; Feedback laden</button>'
+      +   '<button class="btn btn-light    math-modal-cancel" type="button">Abbrechen</button>'
+      + '</div></div>';
+    document.body.appendChild(el);
+
+    function close() { el.style.display = 'none'; el._cb = null; }
+    el.querySelector('.math-modal-close').onclick   = close;
+    el.querySelector('.math-modal-cancel').onclick  = close;
+    el.addEventListener('click', function(e) { if (e.target === el) close(); });
+    el.querySelector('.math-modal-save').onclick = function () {
+      var cfg = {
+        baseUrl: el.querySelector('#math-cfg-url').value.trim(),
+        apiKey:  el.querySelector('#math-cfg-key').value.trim(),
+        model:   el.querySelector('#math-cfg-model').value.trim(),
+      };
+      var hint = el.querySelector('.math-modal-hint');
+      if (!cfg.baseUrl || !cfg.apiKey || !cfg.model) {
+        hint.textContent = 'Bitte alle drei Felder ausfüllen.';
+        hint.style.color = '#dc3545'; return;
+      }
+      saveCfg(cfg); close();
+      if (el._cb) el._cb(cfg);
+    };
+    _modal = el;
+    return el;
+  }
+
+  function showModal(cb) {
+    var m = getModal(), cfg = loadCfg();
+    if (cfg) {
+      m.querySelector('#math-cfg-url').value   = cfg.baseUrl || '';
+      m.querySelector('#math-cfg-key').value   = cfg.apiKey  || '';
+      m.querySelector('#math-cfg-model').value = cfg.model   || '';
+    }
+    m._cb = cb; m.style.display = 'flex';
+  }
+
+  // System prompt – level increases with attempt count
+  function sysPrompt(n) {
+    if (n <= 1) return 'Du bist ein freundlicher Mathematik-Tutor. Der Schüler hat eine Aufgabe bearbeitet. Weise sanft auf den möglichen Fehler hin, ohne die Lösung zu verraten. Gib nur einen kleinen Denkanstoß. Antworte auf Deutsch in maximal 3 kurzen Sätzen.';
+    if (n <= 2) return 'Du bist ein freundlicher Mathematik-Tutor. Der Schüler fragt zum zweiten Mal nach Hilfe. Gib einen konkreten Hinweis auf den Lösungsansatz, ohne die vollständige Lösung zu zeigen. Antworte auf Deutsch in maximal 4 Sätzen.';
+    return 'Du bist ein freundlicher Mathematik-Tutor. Der Schüler hat bereits mehrfach um Hilfe gebeten. Erkläre den vollständigen Lösungsweg jetzt Schritt für Schritt, klar und verständlich. Antworte auf Deutsch.';
+  }
+
+  async function callLLM(question, answer, n, cfg) {
+    var resp = await fetch(cfg.baseUrl.replace(/\/+$/, '') + '/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type':  'application/json',
+        'Authorization': 'Bearer ' + cfg.apiKey,
+      },
+      body: JSON.stringify({
+        model: cfg.model,
+        messages: [
+          { role: 'system', content: sysPrompt(n) },
+          { role: 'user',   content: 'Aufgabe:\n' + question + '\n\nMeine Antwort:\n' + answer },
+        ],
+        max_tokens: 400,
+      }),
+    });
+    if (!resp.ok) { var t = await resp.text(); throw new Error('API ' + resp.status + ': ' + t.slice(0, 200)); }
+    return (await resp.json()).choices[0].message.content;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Exercise cell setup
+  // ---------------------------------------------------------------------------
+
+  function setupCell(cell) {
+    var vars   = cell.dataset.vars   || '';
+    var mode   = cell.dataset.mode   || 'equivalent';
+    var reject = cell.dataset.reject || '';
+    var label  = cell.dataset.label  || cell.id;
+
+    // Pool: pick random task and render it
+    var poolRaw = cell.dataset.pool;
+    if (poolRaw) {
+      var tasks  = JSON.parse(poolRaw);
+      var pkey   = 'math-pool|' + location.pathname + '|' + label;
+      var idx;
+      try { idx = parseInt(sessionStorage.getItem(pkey)); } catch(e) {}
+      if (isNaN(idx) || idx < 0 || idx >= tasks.length) {
+        idx = Math.floor(Math.random() * tasks.length);
+        try { sessionStorage.setItem(pkey, String(idx)); } catch(e) {}
+      }
+      var r = renderTaskText(tasks[idx], cell.id, vars);
+      cell.querySelector('.math-exercise-question').innerHTML = r.html;
+      cell.dataset.fields = JSON.stringify(r.fieldIds);
+    }
+
+    var fieldIds    = JSON.parse(cell.dataset.fields || '[]');
+    var checkBtn    = cell.querySelector('.math-check-btn');
+    var legendBtn   = cell.querySelector('.math-legend-btn');
+    var feedbackBtn  = cell.querySelector('.math-feedback-btn');
+    var reconfigBtn  = cell.querySelector('.math-reconfig-btn');
+    var reloadBtn    = cell.querySelector('.math-pool-reload');
+    var legendPanel = cell.querySelector('.math-legend-panel');
+    var fbDiv       = cell.querySelector('.math-feedback-area');
+    var legendBuilt = false;
+
+    // ---- Legend toggle ----
+    legendBtn.addEventListener('click', async function () {
+      if (legendPanel.style.display === 'none') {
+        legendPanel.style.display = '';
+        legendBtn.classList.add('active');
+        if (!legendBuilt) {
+          legendPanel.innerHTML = '<div class="math-fb-checking">&#9203; Lade Hilfe&hellip;</div>';
+          await buildLegend(legendPanel);
+          legendBuilt = true;
+        }
+      } else {
+        legendPanel.style.display = 'none';
+        legendBtn.classList.remove('active');
+      }
+    });
+
+    // ---- Check ----
+    async function runCheck() {
+      checkBtn.disabled = true;
+      fbDiv.innerHTML = '<div class="math-fb-checking">&#9203; Überprüfe&hellip;</div>';
+      try {
+        await ensureSympy();
+        var parts = [];
+        for (var i = 0; i < fieldIds.length; i++) {
+          var el     = document.getElementById(fieldIds[i]);
+          if (!el) continue;
+          var prefix = fieldIds.length > 1 ? 'Feld&nbsp;' + (i+1) + ': ' : '';
+          var res    = await checkField(el, mode, reject);
+          el.classList.remove('math-input-ok', 'math-input-wrong', 'math-input-err');
+          if      (res.status === 'empty')    { parts.push('<div class="math-fb-empty">'  + prefix + 'Bitte eine Antwort eingeben.</div>'); }
+          else if (res.status === 'correct')  { el.classList.add('math-input-ok');    parts.push('<div class="math-fb-ok">&#10003;&nbsp;'  + prefix + 'Richtig!</div>'); }
+          else if (res.status === 'wrong')    { el.classList.add('math-input-wrong'); parts.push('<div class="math-fb-wrong">&#10007;&nbsp;' + prefix + 'Nicht korrekt – versuche es noch einmal.</div>'); }
+          else if (res.status === 'rejected') { el.classList.add('math-input-wrong'); parts.push('<div class="math-fb-wrong">&#10007;&nbsp;' + prefix + 'Mathematisch korrekt, aber noch nicht vereinfacht. Forme den Ausdruck weiter um.</div>'); }
+          else if (res.status === 'not_exact'){ el.classList.add('math-input-wrong'); parts.push('<div class="math-fb-wrong">&#10007;&nbsp;' + prefix + 'Mathematisch korrekt, aber nicht in der gesuchten Form. Schreibe den Ausdruck genau so um, wie gefordert.</div>'); }
+          else                                { el.classList.add('math-input-err');   parts.push('<div class="math-fb-err">&#9888;&nbsp;'    + prefix + friendlyError(res.message) + '</div>'); }
+        }
+        fbDiv.innerHTML = parts.join('');
+      } catch (err) {
+        fbDiv.innerHTML = '<div class="math-fb-err">&#9888;&nbsp;' + friendlyError(String(err)) + '</div>';
+      } finally { checkBtn.disabled = false; }
+    }
+
+    function attachKeyListeners() {
+      fieldIds.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el && el.tagName === 'INPUT')
+          el.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); runCheck(); } });
+      });
+    }
+
+    checkBtn.addEventListener('click', runCheck);
+    attachKeyListeners();
+
+    // ---- Pool reload ----
+    if (reloadBtn && poolRaw) {
+      var poolTasks = JSON.parse(poolRaw);
+      var pkey = 'math-pool|' + location.pathname + '|' + label;
+      reloadBtn.addEventListener('click', function () {
+        var cur;
+        try { cur = parseInt(sessionStorage.getItem(pkey)); } catch(e) {}
+        var next = cur;
+        if (poolTasks.length > 1) {
+          while (next === cur) { next = Math.floor(Math.random() * poolTasks.length); }
+        }
+        try { sessionStorage.setItem(pkey, String(next)); } catch(e) {}
+
+        var r = renderTaskText(poolTasks[next], cell.id, vars);
+        cell.querySelector('.math-exercise-question').innerHTML = r.html;
+        cell.dataset.fields = JSON.stringify(r.fieldIds);
+        fieldIds = r.fieldIds;
+
+        attachKeyListeners();
+        fbDiv.innerHTML = '';
+        // Clear input state classes (old elements gone, new ones are fresh)
+      });
+    }
+
+    // ---- AI Feedback ----
+    if (feedbackBtn) {
+      feedbackBtn.addEventListener('click', function () {
+        // Collect student answers
+        var answers = fieldIds.map(function (id) {
+          var el = document.getElementById(id); return el ? el.value.trim() : '';
+        }).filter(Boolean).join(' | ');
+        if (!answers) {
+          fbDiv.innerHTML = '<div class="math-fb-empty">Bitte zuerst eine Antwort eingeben, dann Feedback anfordern.</div>';
+          return;
+        }
+        // Build question text (caption + question area, inputs shown as their values)
+        var qDiv   = cell.querySelector('.math-exercise-question');
+        var capEl  = cell.querySelector('.math-exercise-caption');
+        var clone  = qDiv.cloneNode(true);
+        clone.querySelectorAll('input, textarea').forEach(function (el) {
+          var s = document.createElement('span');
+          s.textContent = '[' + (el.value || '?') + ']';
+          el.parentNode.replaceChild(s, el);
+        });
+        var question = (capEl ? capEl.textContent + '\n' : '') + clone.textContent.replace(/\s+/g, ' ').trim();
+
+        async function doFeedback(cfg) {
+          var n = incCnt(label);
+          feedbackBtn.disabled = true;
+          fbDiv.innerHTML = '<div class="math-fb-checking">&#9203; Hole Feedback&hellip;</div>';
+          try {
+            var reply = await callLLM(question, answers, n, cfg);
+            fbDiv.innerHTML =
+              '<div class="math-fb-llm">'
+              + '<div class="math-fb-llm-header">&#128161;&nbsp;Feedback'
+              + (n > 1 ? ' <span class="math-fb-llm-cnt">(Versuch&nbsp;' + n + ')</span>' : '')
+              + '</div>'
+              + '<div class="math-fb-llm-body">' + simpleMarkdown(reply) + '</div>'
+              + '</div>';
+          } catch (err) {
+            fbDiv.innerHTML =
+              '<div class="math-fb-err">&#9888;&nbsp;Fehler: ' + escHtml(String(err))
+              + '&nbsp;&nbsp;<button type="button" class="btn btn-sm btn-light math-fb-reconfig">&#9881;&nbsp;Konfiguration ändern</button>'
+              + '</div>';
+            var fbRecfg = fbDiv.querySelector('.math-fb-reconfig');
+            if (fbRecfg) fbRecfg.addEventListener('click', function () { showModal(function (c) { doFeedback(c); }); });
+          } finally { feedbackBtn.disabled = false; }
+        }
+
+        var cfg = loadCfg();
+        if (cfg) { doFeedback(cfg); }
+        else      { showModal(function (c) { doFeedback(c); }); }
+      });
+    }
+
+    if (reconfigBtn) {
+      reconfigBtn.addEventListener('click', function () { showModal(function () {}); });
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Init
+  // ---------------------------------------------------------------------------
+
+  document.addEventListener('DOMContentLoaded', async function () {
+    await ensurePyodide();
+    document.querySelectorAll('.math-exercise-cell').forEach(setupCell);
+  });
+
+})();
+
+</script>
+
+
+
+
+</body></html>

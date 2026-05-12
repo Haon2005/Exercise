@@ -1,0 +1,156 @@
+---
+title: "Math Exercise – Feature-Übersicht"
+filters:
+  - Erasmus-CTM/math-exercise
+---
+
+## Modus: `equivalent` – beliebige gleichwertige Form
+
+Jede mathematisch korrekte Schreibweise wird akzeptiert.
+`pi*9`, `9*pi`, `3^2*pi` sind alle richtig.
+
+```{math-exercise}
+#| label: kreis-equivalent
+#| caption: Aufgabe – Flächeninhalt eines Kreises
+Ein Kreis hat den Radius r = 3 cm. Berechne den Flächeninhalt A.
+
+A = _[pi * 9] cm²
+```
+
+---
+
+## Modus: `equivalent` + `reject` – Vereinfachen erzwingen
+
+`(x+1)^2` wird abgelehnt, obwohl korrekt.
+Nur eine ausmultiplizierte Form wird akzeptiert.
+
+```{math-exercise}
+#| label: potenz-vereinfachen
+#| caption: Aufgabe – Ausdruck vereinfachen
+#| vars: x
+#| mode: equivalent
+#| reject: (x+1)**2
+Multipliziere aus und vereinfache: (x + 1)²
+
+Ergebnis: _[x**2 + 2*x + 1]
+```
+
+---
+
+## Modus: `exact` – genau eine bestimmte Form
+
+Nur `x^2 + 2x + 1` wird akzeptiert –
+`(x+1)^2` oder `1 + 2x + x^2` nicht.
+
+```{math-exercise}
+#| label: potenz-exakt
+#| caption: Aufgabe – Exakte Darstellung
+#| vars: x
+#| mode: exact
+Schreibe (x + 1)² als ausmultiplizierte Summe:
+
+_[x**2 + 2*x + 1]
+```
+
+---
+
+## Mehrere Eingabefelder
+
+Alle Felder werden gemeinsam geprüft.
+
+```{math-exercise}
+#| label: kreis-beide
+#| caption: Aufgabe – Kreis mit r = 5 cm
+Berechne für einen Kreis mit r = 5 cm:
+
+Fläche &nbsp;&nbsp; A = _[pi * 25] cm²
+Umfang U = _[2 * pi * 5] cm
+```
+
+---
+
+## Großes Eingabefeld (`___`)
+
+```{math-exercise}
+#| label: integral
+#| caption: Aufgabe – Integral
+#| vars: x
+Berechne das unbestimmte Integral von 2x (ohne Konstante C):
+
+∫ 2x dx = ___[x**2]
+```
+
+---
+
+## Aufgaben-Pool mit Reload-Button
+
+Beim Laden wird eine der drei Varianten zufällig gewählt.
+Mit dem **↻-Button** oben rechts kann eine neue Variante geladen werden.
+
+```{math-exercise}
+#| label: kreis-pool
+#| caption: Aufgabe – Kreisfläche (Zufallsaufgabe)
+#| pool: true
+
+Berechne die Fläche eines Kreises mit r = 3 cm.
+
+A = _[pi * 9] cm²
+
+---
+
+Berechne die Fläche eines Kreises mit r = 5 cm.
+
+A = _[pi * 25] cm²
+
+---
+
+Berechne die Fläche eines Kreises mit r = 7 cm.
+
+A = _[pi * 49] cm²
+```
+
+---
+
+## Pool mit Variablen
+
+Ableitungsaufgaben als Pool – alle Varianten teilen dieselben Optionen.
+
+```{math-exercise}
+#| label: ableitung-pool
+#| caption: Aufgabe – Ableitung bestimmen (Zufallsaufgabe)
+#| vars: x
+#| pool: true
+
+Berechne die Ableitung von f(x) = x².
+
+f'(x) = _[2*x]
+
+---
+
+Berechne die Ableitung von f(x) = x³.
+
+f'(x) = _[3*x**2]
+
+---
+
+Berechne die Ableitung von f(x) = x⁴.
+
+f'(x) = _[4*x**3]
+```
+
+---
+
+## KI-Feedback
+
+Jede Aufgabe oben hat einen **Feedback**-Button.
+Beim ersten Klick öffnet sich ein Einrichtungsdialog für Base-URL, API-Key und Modell
+(z. B. Cerebras). Die Zugangsdaten werden lokal gespeichert und gelten für alle Seiten
+des Projekts – einmaliges Einrichten reicht.
+
+Je häufiger Feedback zur selben Aufgabe angefordert wird, desto konkreter wird der Hinweis:
+
+| Versuch | Hinweis |
+|---------|---------|
+| 1. | Sanfter Denkanstoß, keine Lösung |
+| 2. | Konkreter Lösungsansatz |
+| 3.+ | Vollständiger Lösungsweg |
